@@ -1,0 +1,18 @@
+main.mainLayout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+div.content {
+    height: 100%;
+    width: 100%;
+    background: rgba(234, 214, 185, 0.27);
+}
+
+div.content-background {
+    background-image: url(images/mainbg.jpg);
+    background-repeat: repeat-y;
+    background-position: center;
+    background-size: cover;
+}

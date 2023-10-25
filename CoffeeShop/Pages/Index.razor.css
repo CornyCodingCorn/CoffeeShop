@@ -1,0 +1,67 @@
+
+div.background {
+    flex-grow: 1;
+    user-select: none;
+}
+
+.gradient-background {
+    background: linear-gradient(90deg, var(--header-footer-color-1) 0%,
+    var(--header-footer-color-2) 100%);
+}
+
+.title {
+    transform: skewX(-30deg);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding: 30px
+}
+
+.title-background {
+    width: 60%;
+}
+
+.title-text {
+    font-size: 45px;
+    font-family: Team401, serif;
+    text-align: center;
+}
+
+.title-bottom-text {
+    font-family: "RobotoMono Nerd Font", serif;
+    text-align: center;
+}
+
+.title-icon {
+    width: 50px;
+    height: 50px;
+}
+
+.title-item {
+    transform: skewX(30deg);
+}
+
+h1.section-label {
+    font-family: "RobotoMono Nerd Font", serif;
+    color: var(--text-color);
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.center-row-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+}
+
+div.load-more-div {
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+::deep .load-more-div button.custom-btn {
+    width: 130px;
+    font-size: 15px;
+}

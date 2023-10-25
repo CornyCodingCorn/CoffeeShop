@@ -1,0 +1,19 @@
+@inherits Button
+
+<button class="custom-toggle-btn @GetClass()"
+        ref="@Reference"
+        @onclick="OnClick">
+    <div>
+        @Text
+    </div>
+</button>
+
+@code {
+    [Parameter]
+    public bool IsToggled { get; set; }
+
+    private string GetClass()
+    {
+        return IsToggled ? "custom-btn-toggled" : "custom-btn";
+    }
+}

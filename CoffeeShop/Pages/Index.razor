@@ -1,0 +1,47 @@
+﻿@page "/"
+@using CoffeeShop.Services.Interfaces
+@inject INewsService NewService
+
+@using NewsInfo = CoffeeShop.Services.Interfaces.INewsService.Info;
+
+<div class="background">
+    <div class="title">
+        <div class="title-background gradient-background">
+            <h1 class="title-text title-item">HARDCORE COFFEE</h1>
+            <div class="center-row-div">
+                <img class="title-icon title-item" src="images/cup.png" alt="cup"/>
+            </div>
+            <h3 class="title-bottom-text title-item">Coffee for giga chad and turns man into giga chad</h3>
+        </div>
+    </div>
+    <h1 class="section-label gradient-background">Tin tức</h1>
+    @foreach (var info in _queriedNews)
+    {
+        <NewsElement Info="@info"/>
+    }
+    <div class="center-row-div load-more-div">
+        <Button Text="Load more"></Button>
+    </div>
+    <h1 class="section-label gradient-background">Khuyến mãi</h1>
+</div>
+
+@code {
+    private readonly List<NewsInfo> _queriedNews = new();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        
+        var news = NewService.GetNews(0, 5);
+        AppendNews(news);
+    }
+
+    private void AppendNews(IEnumerable<NewsInfo> infos)
+    {
+        foreach (var info in infos)
+        {
+            info.Flip = _queriedNews.Count % 2 != 0;
+            _queriedNews.Add(info);
+        }
+    }
+}

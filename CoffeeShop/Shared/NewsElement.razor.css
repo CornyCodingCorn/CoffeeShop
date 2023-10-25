@@ -1,0 +1,70 @@
+#news-element {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#news-container {
+    --news-height: 300px;
+    height: var(--news-height);
+    background: var(--text-color);
+    border-radius: 10px;
+    width: 70%;
+    box-shadow: 0 5px 10px 4px var(--header-footer-color-2);
+}
+
+#news-title {
+    color: var(--btn-color);
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 0;
+}
+
+#news-content {
+    text-justify: inter-character;
+    text-align: justify;
+    max-height: calc(var(--news-height) - 65px);
+    overflow: hidden;
+    margin-left: 20px;
+}
+
+#news-image {
+    width: 100%;
+    max-height: calc(100% - 40px);
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+#news-image-container {
+    display: flex;
+    width: 35%;
+    height: var(--news-height);
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    padding: 0 30px;
+}
+
+#news-expand-btn {
+    height: 80px;
+    width: 100%;
+    position: relative;
+    bottom: 70px;
+    right: 0;
+    background: linear-gradient(0deg, var(--text-color) 40%, rgba(0, 0, 0, 0) 100%);
+    border-radius: 10px;
+    border: 0;
+    color: var(--btn-color);
+    padding-top: 40px;
+    font-family: serif;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+#news-expand-btn:hover {
+    background: linear-gradient(0deg, var(--btn-hover-color) 40%, rgba(0, 0, 0, 0) 100%);
+    color: var(--text-color)
+}

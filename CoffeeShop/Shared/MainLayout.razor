@@ -1,0 +1,23 @@
+﻿@inherits LayoutComponentBase
+@using PageInfo = PageHeader.PageInfo;
+
+<main class="mainLayout">
+    <PageHeader BrandName="HARDCORE COFFEE" PagesInfo="@_info"/>
+    <div class="content-background">
+        <div class="content">
+            @Body
+        </div>
+    </div>
+    <PageFooter/>
+</main>
+
+@code {
+
+    private readonly PageInfo[] _info = {
+        new PageInfo("Home", "/"),
+        new PageInfo("Menu", "menu"),
+        new PageInfo("Shops", "shops"),
+        new PageInfo("Contact", "contact")
+    };
+
+}

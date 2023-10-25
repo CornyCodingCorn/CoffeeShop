@@ -1,0 +1,28 @@
+@using NewsInfo = Services.Interfaces.INewsService.Info;
+
+<div id="news-element"> 
+    <div id="news-container">
+        <aside id="news-image-container" style="float: @GetFloatPosition()">
+            <img id="news-image" src="@Info.ImageUrl" alt="news image"/>
+        </aside>
+        <h2 id="news-title">@Info.Title</h2>
+        <div id="news-content">@((MarkupString)Info.Content)</div>
+        <button id="news-expand-btn">Read more</button>
+    </div>
+</div>
+
+@code {
+    
+    [Parameter]
+    public NewsInfo Info { get; set; } = default!;
+
+    private string GetFloatPosition()
+    {
+        return Info.Flip ? "left" : "right";
+    }
+
+    private string GetPaddingStyle()
+    {
+        return Info.Flip ? "padding-left:" : "padding-right:";
+    }
+}

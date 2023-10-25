@@ -1,0 +1,23 @@
+.app {
+    --btn-color: #70877F;
+    --btn-hover-color: #C4A77D;
+    --btn-click-color: #EF946C;
+
+    --toggle-btn-color: #97c7b8;
+    --toggle-btn-hover-color: #eec385;
+    --toggle-btn-click-color: #ffa884;
+
+    --brand-height: 70px;
+    --header-menu-height: 40px;
+    --footer-height: 200px;
+    --header-footer-color-1: rgba(112, 135, 127, 0.85);
+    --header-footer-color-2: rgba(114, 95, 67, 0.85);
+    --text-color: #f1ebe1;
+    
+    --text-color-2: #ffffff;
+}
+
+@font-face {
+    font-family: "Team401";
+    src: url("font/team-401.ttf") format("truetype");
+}

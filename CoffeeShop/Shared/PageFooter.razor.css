@@ -1,0 +1,96 @@
+p {
+    color: var(--text-color)
+}
+
+sub {
+    font-size: 10px;
+}
+
+.none-select {
+    user-select: none;
+}
+
+.footer-info {
+    line-height: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-info-icon {
+    width: 35px;
+    height: 35px;
+    padding: 20px;
+    pointer-events: none;
+    user-select: none;
+}
+
+.footer-info-icon-left {
+    transform: rotateY(180deg);
+}
+
+.footer-contact {
+    font-size: 15px;
+}
+
+.footer {
+    background: var(--header-footer-color-2);
+    background: linear-gradient(90deg,  var(--header-footer-color-2) 0%,
+    var(--header-footer-color-1) 100%);
+    padding: 10px 20px;
+}
+
+.footer-scan {
+    float: right;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+}
+
+.footer-scan-img {
+    width: 100px;
+    height: 100px;
+    pointer-events: none;
+}
+
+.footer-scan-label {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 18px;
+    font-family: "RobotoMono Nerd Font", serif;
+    color: var(--text-color)
+}
+
+.pad {
+    height: 2px;
+    border-radius: 50%;
+    border: none;
+    background: var(--toggle-btn-color);
+    background: linear-gradient(90deg, var(--toggle-btn-hover-color) var(--pad-gradient),
+    var(--toggle-btn-color) var(--pad-gradient-2));
+    position: relative;
+    transform: translate(1px, 0px);
+    width: 100%;
+}
+
+.pad-screen-media {
+    --pad-gradient: 35%;
+    --pad-gradient-2: 60%;
+}
+
+@media (min-width: 0px) and (max-width: 1100px) {
+    .pad-screen-media {
+        --pad-gradient: 75%;
+        --pad-gradient-2: 90%;
+    }
+}
+
+@media (min-width: 1100px) and (max-width: 1600px) {
+    .pad-screen-media {
+        --pad-gradient: 55%;
+        --pad-gradient-2: 75%;
+    }
+}

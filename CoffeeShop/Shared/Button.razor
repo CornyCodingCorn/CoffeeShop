@@ -1,0 +1,21 @@
+@using CoffeeShop.Shared.BaseComponents
+@inherits ComplexComponent
+
+<button class="custom-btn" ref="@Reference"
+        @onclick="OnClick">
+    @Text
+</button>
+
+@code {
+
+    [Parameter]
+    public string Text { get; set; } = string.Empty;
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClickCallback { get; set; }
+    
+    protected void OnClick()
+    {
+        OnClickCallback.InvokeAsync();
+    }
+}
