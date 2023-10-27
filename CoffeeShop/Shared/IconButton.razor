@@ -1,0 +1,49 @@
+@using System.Reflection.Metadata
+@using System.Text
+@inherits CoffeeShop.Shared.BaseComponents.ComplexComponent
+
+<button class="icon-btn" @ref="@Reference" style="flex-direction: @GetFlexDirection()" @attributes="AdditionalAttributes">
+    <span class="icon-btn-text">@Text</span>
+    @if (ImageSrc != string.Empty)
+    {
+        <img class="icon-btn-image" src="@ImageSrc" alt="@ImageAlt"/>
+    }
+</button>
+
+@code {
+
+    public enum ImagePosition
+    {
+        Top = 0x00,
+        Left = 0x01,
+        Bottom = 0x10,
+        Right = 0x11
+    }
+
+    [Parameter]
+    public string Text { get; set; } = string.Empty;
+
+    [Parameter]
+    public string ImageSrc { get; set; } = string.Empty;
+
+    [Parameter]
+    public string ImageAlt { get; set; } = "Image not found";
+
+    [Parameter]
+    public ImagePosition ImagePos { get; set; } = ImagePosition.Left;
+    
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IDictionary<string, object>? AdditionalAttributes { get; set; }
+    
+    private string GetFlexDirection()
+    {
+        var builder = new StringBuilder(((int)ImagePos & 0x01) != 0 ? "row" : "column");
+        builder.Append(((int)ImagePos & 0x10) != 0 ? "" : "-reverse");
+        return builder.ToString();
+    }
+
+    private int GetZIndex()
+    {
+        return ((int)ImagePos & 0x10) >> 1;
+    }
+}

@@ -1,0 +1,39 @@
+.icon-btn {
+    --icon-size: 20px;
+    
+    display: flex;
+    align-items: center;
+    
+    background-color: var(--btn-color, white);
+    border-radius: 5px;
+    border: none;
+
+    color: var(--text-color);
+    font-weight: bold;
+    font-size: 15px;
+    
+    padding: 10px 20px
+}
+
+.icon-btn:hover {
+    background-color: var(--btn-hover-color, black);
+}
+
+.icon-btn:active {
+    background-color: var(--btn-click-color, red);
+}
+
+.icon-btn-text {
+    height: fit-content;
+    
+    margin: 0;
+    
+    font-weight: inherit;
+    font-size: inherit;
+}
+
+.icon-btn-image {
+    object-fit: cover;
+    width: var(--icon-size);
+    height: var(--icon-size);
+}

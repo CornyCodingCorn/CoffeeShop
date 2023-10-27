@@ -24,6 +24,7 @@
     <div class="center-row-div load-more-div">
         <Button Text="Load more"></Button>
     </div>
+    <IconButton id="scroll-btn" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" ImageSrc="images/arrow-up.png" Text="Hellow world" ImagePos="IconButton.ImagePosition.Top"></IconButton>
     <h1 class="section-label gradient-background">Khuyến mãi</h1>
 </div>
 
@@ -45,5 +46,10 @@
             info.Flip = _queriedNews.Count % 2 != 0;
             _queriedNews.Add(info);
         }
+    }
+
+    private void ScrollToTop()
+    {
+        Console.WriteLine("Hi");
     }
 }
