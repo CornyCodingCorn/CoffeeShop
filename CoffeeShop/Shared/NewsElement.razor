@@ -1,14 +1,28 @@
 @using NewsInfo = Services.Interfaces.INewsService.Info;
 
-<div id="news-element"> 
-    <div id="news-container">
-        <aside id="news-image-container" style="float: @GetFloatPosition()">
-            <img id="news-image" src="@Info.ImageUrl" alt="news image"/>
-        </aside>
-        <h2 id="news-title">@Info.Title</h2>
-        <div id="news-content">@((MarkupString)Info.Content)</div>
-        <button id="news-expand-btn">Read more</button>
+@* <div id="news-element">  *@
+@*     <div id="news-container"> *@
+@*         <aside id="news-image-container" style="float: @GetFloatPosition()"> *@
+@*             <img id="news-image" src="@Info.ImageUrl" alt="news image"/> *@
+@*         </aside> *@
+@*         <h2 id="news-title">@Info.Title</h2> *@
+@*         <div id="news-content">@((MarkupString)Info.Content)</div> *@
+@*         <button id="news-expand-btn" @onclick="Expand">Read more</button> *@
+@*     </div> *@
+@* </div> *@
+<div id="news-element">
+    <div id="news-container" >
+        <div id="news-image-container" class="collapsed @GetState()" >
+            <img id="news-image" src="@Info.ImageUrl" alt="news image" />
+        </div>
+        <div id="news-text">
+            <h2 id="news-title">@Info.Title</h2>
+            <div id="news-content" class="collapsed @GetState()" >
+                @((MarkupString)Info.Content)
+            </div>
+        </div>
     </div>
+    <button id="news-expand-btn" class="collapsed @GetState()" @onclick="ToggleState">@GetButtonText()</button>
 </div>
 
 @code {
@@ -16,13 +30,21 @@
     [Parameter]
     public NewsInfo Info { get; set; } = default!;
 
-    private string GetFloatPosition()
+    [Parameter]
+    public bool Expanded { get; set; }
+
+    private string GetState()
     {
-        return Info.Flip ? "left" : "right";
+        return Expanded ? " expanded" : "";
     }
 
-    private string GetPaddingStyle()
+    private string GetButtonText()
     {
-        return Info.Flip ? "padding-left:" : "padding-right:";
+        return Expanded ? "Show less" : "Read more";
+    }
+
+    private void ToggleState()
+    {
+        Expanded = !Expanded;
     }
 }

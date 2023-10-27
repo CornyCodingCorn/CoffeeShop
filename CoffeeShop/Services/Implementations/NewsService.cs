@@ -44,8 +44,10 @@ public class NewsService : INewsService
                 Title = "Happy birthday HardcoreCoffee!",
                 Content = /*language=html*/ $"""
                 <div>
-                    <p>Testing</p>
-                    
+                    <p>Happy Birthday to <b>Hardcore Coffee!</b> 🎉🎂🎈</p>
+                    <p>We are thrilled to celebrate the birthday of one of our favorite coffee shops. Hardcore Coffee has been serving up delicious coffee and pastries for years, and we are excited to see what the future holds for this amazing establishment. We hope that this year brings you even more success and happiness than the last.</p>
+                    <p>To celebrate this special occasion, we have a special promotion for all our customers. For the next week, we are offering a <em>20% discount</em> on all coffee and pastries at Hardcore Coffee. This is our way of saying thank you for your continued support and loyalty. We hope that you will take advantage of this amazing offer and come celebrate with us at Hardcore Coffee.</p>
+                    <p>Don’t miss out on this incredible opportunity to enjoy some of the best coffee and pastries in town at an unbeatable price. We look forward to seeing you soon!</p>
                 </div>
                 """,
                 ImageUrl = "https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/happy-birthday-in-wood-type-with-coffee-marek-uliasz.jpg"
