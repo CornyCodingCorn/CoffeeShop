@@ -1,5 +1,10 @@
-﻿@inherits LayoutComponentBase
-@using PageInfo = PageHeader.PageInfo;
+﻿@using PageInfo = PageHeader.PageInfo;
+@using CoffeeShop.Services.Interfaces;
+@using CoffeeShop.Shared.ComponentInterfaces
+
+@inject IJsHelper JsHelper
+
+@inherits LayoutComponentBase
 
 <main class="mainLayout">
     <PageHeader BrandName="HARDCORE COFFEE" PagesInfo="@_info"/>
@@ -8,11 +13,22 @@
             @Body
         </div>
     </div>
-    <PageFooter/>
+    <div id="scroll-btn-div" class="component-warping-div scroll-btn-div-@(_hitFooter ? "absolute" : "fixed")">
+        <IconButton id="scroll-btn" @onpointerdown="ScrollToTop" @ref="_btn" ImagePos="IconButton.ImagePosition.Top" ImageSrc="images/arrow-up.png" ImageAlt="arrow image" ></IconButton>
+    </div>
+    <PageFooter @ref="_reference"/>
 </main>
 
 @code {
 
+    private IRefComponent _btn; 
+    
+    private IRefComponent _reference = default!;
+    private bool _hitFooter = false;
+
+    private Task _addTriggerTask = default!;
+    private IJSObjectReference _jsObserver = default!;
+    
     private readonly PageInfo[] _info = {
         new PageInfo("Home", "/"),
         new PageInfo("Menu", "menu"),
@@ -20,4 +36,20 @@
         new PageInfo("Contact", "contact")
     };
 
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _addTriggerTask = Task.Run(async () =>
+        {
+            _jsObserver = await JsHelper.CreateVisibleTrigger(_reference.Reference, () => { _hitFooter = true; Console.WriteLine("Hiiiiiolioioi"); }, () => _hitFooter = false);
+        });
+    }
+
+    private void ScrollToTop(PointerEventArgs e)
+    {
+        JsHelper.ScrollToY(0);
+        JsHelper.CapturePointer(_btn.Reference, e.PointerId);
+        JsHelper.CreateVisibleTrigger(_reference.Reference, () => _hitFooter = true, () => _hitFooter = false);
+    }
 }

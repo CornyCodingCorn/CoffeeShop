@@ -1,4 +1,6 @@
-<footer class="footer" xmlns="http://www.w3.org/1999/html">
+@implements CoffeeShop.Shared.ComponentInterfaces.IRefComponent
+
+<footer @ref="Reference" class="footer" xmlns="http://www.w3.org/1999/html">
     <aside class="footer-scan">
         <img class="footer-scan-img" src="https://www.dwds.de/normal/QR-Code.png" alt="QR-Code"/>
         <b class="footer-scan-label">SCAN HERE!</b>
@@ -28,5 +30,5 @@
 </footer>
 
 @code {
-    
+    public ElementReference Reference { get; private set; }
 }

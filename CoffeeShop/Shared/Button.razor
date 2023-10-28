@@ -1,7 +1,6 @@
-@using CoffeeShop.Shared.BaseComponents
-@inherits ComplexComponent
+@implements CoffeeShop.Shared.ComponentInterfaces.IRefComponent;
 
-<button class="custom-btn" ref="@Reference"
+<button class="custom-btn" @ref="Reference"
         @onclick="OnClick">
     @Text
 </button>
@@ -10,9 +9,10 @@
 
     [Parameter]
     public string Text { get; set; } = string.Empty;
-
     [Parameter]
     public EventCallback<MouseEventArgs> OnClickCallback { get; set; }
+    
+    public ElementReference Reference { get; private set; }
     
     protected void OnClick()
     {
