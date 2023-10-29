@@ -11,6 +11,7 @@ div.content {
 }
 
 div.content-background {
+    position: relative;
     background-image: url(images/mainbg.jpg);
     background-repeat: repeat-y;
     background-position: center;
@@ -19,18 +20,17 @@ div.content-background {
 
 #scroll-btn-div {
     z-index: 69;
+    bottom: 40px;
+    right: 20px;
+    transition: all 1s ease-in-out;
 }
 
 .scroll-btn-div-absolute {
     position: absolute;
-    bottom: 40px;
-    right: 20px;
 }
 
 .scroll-btn-div-fixed {
     position: fixed;
-    bottom: 40px;
-    right: 20px;
 }
 
 ::deep #scroll-btn {
