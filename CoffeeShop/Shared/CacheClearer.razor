@@ -1,0 +1,20 @@
+@using System.Diagnostics
+@using CoffeeShop.Services.Interfaces
+@inject IJsHelper JsHelper
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        ClearCache();
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    [Conditional("DEBUG")]
+    private void ClearCache()
+    {
+        Task.Run(async () =>
+        {
+            await JsHelper.ClearCache();
+        });
+    }
+}

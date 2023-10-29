@@ -1,17 +1,33 @@
-﻿@inherits LayoutComponentBase
-@using PageInfo = PageHeader.PageInfo;
+﻿@using PageInfo = PageHeader.PageInfo;
+@using CoffeeShop.Services.Interfaces;
+@using CoffeeShop.Shared.ComponentInterfaces
+
+@inject IJsHelper JsHelper
+
+@inherits LayoutComponentBase
+@implements IDisposable
 
 <main class="mainLayout">
+    <CacheClearer/>
     <PageHeader BrandName="HARDCORE COFFEE" PagesInfo="@_info"/>
     <div class="content-background">
         <div class="content">
             @Body
         </div>
+        <div id="scroll-btn-div" class="component-warping-div scroll-btn-div-@(_hitFooter ? "absolute" : "fixed")">
+            <IconButton id="scroll-btn" @onpointerdown="ScrollToTop" ImagePos="IconButton.ImagePosition.Top" ImageSrc="images/arrow-up.png" ImageAlt="arrow image"></IconButton>
+        </div>
     </div>
-    <PageFooter/>
+    <PageFooter @ref="_footerRef"/>
 </main>
 
 @code {
+    
+    private IRefComponent _footerRef = default!;
+    private bool _hitFooter = false;
+
+    private IJSObjectReference _jsObserver = default!;
+    private DotNetObjectReference<MainLayout> _thisRef = default!;
 
     private readonly PageInfo[] _info = {
         new PageInfo("Home", "/"),
@@ -19,5 +35,47 @@
         new PageInfo("Shops", "shops"),
         new PageInfo("Contact", "contact")
     };
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        (_thisRef, _jsObserver) = await JsHelper.CreateVisibleTrigger(_footerRef.Reference, this, nameof(OnFooterVisible), nameof(OnFooterInvisible));
+    }
+
+    private string GetScrollBtnClass()
+    {
+        return _hitFooter ? "scroll-btn-div-absolute" : "scroll-btn-div-fixed";
+    }
+    
+
+    [JSInvokable]
+    public void OnFooterVisible()
+    {
+        if (_hitFooter) return;
+        _hitFooter = true;
+        StateHasChanged();
+    }
+
+    [JSInvokable]
+    public void OnFooterInvisible()
+    {
+        if (!_hitFooter) return;
+        _hitFooter = false;
+        StateHasChanged();
+    }
+
+    private void ScrollToTop(PointerEventArgs e)
+    {
+        JsHelper.ScrollToY(0);
+    }
+
+    public void Dispose()
+    {
+        if (_jsObserver is IDisposable jsObserverDisposable)
+            jsObserverDisposable.Dispose();
+        else
+            _ = _jsObserver.DisposeAsync().AsTask();
+        _thisRef.Dispose();
+    }
 
 }
