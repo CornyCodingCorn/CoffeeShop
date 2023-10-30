@@ -7,8 +7,9 @@
 <div class="notification-container">
     @foreach (var popUp in _popUps)
     {
-        <NotificationPopUp Id="@popUp.Id" 
+        <NotificationPopUp @key="popUp.Id"
                            Title="@popUp.Title" 
+                           Type="@popUp.Type"
                            Content="@popUp.Content" 
                            OnExpired="RemoveNotice" 
                            Duration="@_popUpsDuration"
@@ -23,10 +24,11 @@
         public Guid Id { get; init; }
         public string Title { get; init; }
         public string Content { get; init; }
+        public INotificationService.Type Type { get; init; }
     }
 
     private readonly List<PopUp> _popUps = new();
-    private readonly float _popUpsDuration = 3;
+    private readonly float _popUpsDuration = 4;
     private readonly float _popUpsDelay = 1;
     
     public void AddNotice(INotificationService.Type type, string title, string content)
@@ -35,7 +37,8 @@
         {
             Id = Guid.NewGuid(),
             Title = title,
-            Content = content
+            Content = content,
+            Type = type,
         });
         StateHasChanged();
     }
@@ -43,7 +46,7 @@
     public void RemoveNotice()
     {
         if (_popUps.Count == 0) return;
-        _ = _popUps.Remove(_popUps.Last());
+        _ = _popUps.Remove(_popUps.First());
         StateHasChanged();
     }
 

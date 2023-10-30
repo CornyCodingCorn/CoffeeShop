@@ -1,15 +1,23 @@
 @using CoffeeShop.Services.Interfaces
-<div id="@Id.ToString()" class="notification-popup @TypeToString(Type) @(_isHidden ? "hidden" : "")">
-    <h3>@Title</h3>
-    <p>@Content</p>
+<div class="notification-popup @TypeToString(Type) @(_isHidden ? "hidden" : "") skew">
+    <div class="title-div @TypeToString(Type)">
+        <div class="un-skew">
+            <div class="notice-text notice-title">@Title</div>
+        </div>
+    </div>
+    <div class="content-div un-skew">
+        <div class="notice-text notice-content">@Content</div>
+    </div>
+
+    <div class="notification-duration-container">
+        <div class="notification-duration @(_startDurationAnim ? "start" : "")" style="transition: all @(Duration * 1.25)s linear"></div>
+    </div>
 </div>
 
 @code {
 
     [Parameter]
     public INotificationService.Type Type { get; set; } = INotificationService.Type.Info;
-    [Parameter]
-    public Guid Id { get; set; }
     [Parameter]
     public string Title { get; set; } = default!;
     [Parameter]
@@ -21,7 +29,8 @@
     [Parameter]
     public EventCallback OnExpired { get; set; } = default!;
 
-    private bool _isHidden;
+    private bool _isHidden = true;
+    private bool _startDurationAnim = false;
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -30,8 +39,13 @@
         if (!firstRender) return;
         Task.Run(async () =>
         {
+            _isHidden = false;
+            _startDurationAnim = true;
+            StateHasChanged();
+            
             await Task.Delay((int)(Duration * 1000));
             _isHidden = true;
+            StateHasChanged();
             
             // This is to wait for element to finish animation
             await Task.Delay((int)(DelayBeforeCallback * 1000));

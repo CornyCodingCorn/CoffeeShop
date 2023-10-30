@@ -59,8 +59,7 @@
         var news = NewsService.GetNews(_currentNews, length);
         if (news.Length == 0)
         {
-            Console.WriteLine("No more news");
-            NoticeService.Info("Hi", "This is a notice hi hi hi");
+            NoticeService.Info("Loading info", "There isn't anymore content to load");
         }
         
         _currentNews += news.Length;
@@ -72,7 +71,6 @@
         var promotions = NewsService.GetPromotion(_currentPromotion, length);
         if (promotions.Length == 0)
         {
-            Console.WriteLine("No more promotion");
             NoticeService.Warn("Warnninininini", "This is a notice");
         }
         

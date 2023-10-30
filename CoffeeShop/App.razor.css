@@ -7,6 +7,15 @@
     --toggle-btn-hover-color: #eec385;
     --toggle-btn-click-color: #ffa884;
 
+
+    --pop-up-info: #70877F;
+    --pop-up-warn: #C4A77D;
+    --pop-up-danger: #EF946C;
+    
+    --pop-up-info-title: #97c7b8;
+    --pop-up-warn-title: #eec385;
+    --pop-up-danger-title: #ffa884;
+
     --brand-height: 70px;
     --header-menu-height: 40px;
     --footer-height: 200px;
