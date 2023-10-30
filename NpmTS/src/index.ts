@@ -1,1 +1,0 @@
-export * from "@microsoft/dotnet-js-interop";
