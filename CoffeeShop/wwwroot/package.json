@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "@microsoft/dotnet-js-interop": "^7.0.12"
+  }
+}
