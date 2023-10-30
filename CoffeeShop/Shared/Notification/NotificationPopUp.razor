@@ -1,5 +1,52 @@
-<h3>PopUp</h3>
+@using CoffeeShop.Services.Interfaces
+<div id="@Id.ToString()" class="notification-popup @TypeToString(Type) @(_isHidden ? "hidden" : "")">
+    <h3>@Title</h3>
+    <p>@Content</p>
+</div>
 
 @code {
-    
+
+    [Parameter]
+    public INotificationService.Type Type { get; set; } = INotificationService.Type.Info;
+    [Parameter]
+    public Guid Id { get; set; }
+    [Parameter]
+    public string Title { get; set; } = default!;
+    [Parameter]
+    public string Content { get; set; } = default!;
+    [Parameter]
+    public float Duration { get; set; }
+    [Parameter]
+    public float DelayBeforeCallback { get; set; }
+    [Parameter]
+    public EventCallback OnExpired { get; set; } = default!;
+
+    private bool _isHidden;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+
+        if (!firstRender) return;
+        Task.Run(async () =>
+        {
+            await Task.Delay((int)(Duration * 1000));
+            _isHidden = true;
+            
+            // This is to wait for element to finish animation
+            await Task.Delay((int)(DelayBeforeCallback * 1000));
+            await OnExpired.InvokeAsync();
+        });
+    }
+
+    private string TypeToString(INotificationService.Type type)
+    {
+        return type switch
+        {
+            INotificationService.Type.Info => "info",
+            INotificationService.Type.Warn => "warn",
+            INotificationService.Type.Danger => "danger",
+            _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+            };
+    }
 }

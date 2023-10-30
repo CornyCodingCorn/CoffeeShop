@@ -1,0 +1,26 @@
+.notification-popup {
+    --notification-width: 200px;
+    
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: var(--notification-width);
+    transition: right 0.5s ease-in-out;
+    z-index: 100;
+}
+
+.notification-popup.info {
+    background: green;
+}
+
+.notification-popup.warn {
+    background: yellow;
+}
+
+.notification-popup.danger {
+    background: darkred;
+}
+
+.notification-popup.hidden {
+    margin-right: calc(var(--notification-width) * -1);
+}

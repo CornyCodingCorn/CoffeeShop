@@ -1,6 +1,7 @@
 ﻿@using PageInfo = PageHeader.PageInfo;
 @using CoffeeShop.Services.Interfaces;
-@using CoffeeShop.Shared.ComponentInterfaces
+@using CoffeeShop.Shared.ComponentInterfaces;
+@using CoffeeShop.Shared.Notification;
 
 @inject IJsHelper JsHelper
 
@@ -9,6 +10,8 @@
 
 <main class="mainLayout">
     <CacheClearer/>
+    <NotificationContainer/>
+    
     <PageHeader BrandName="HARDCORE COFFEE" PagesInfo="@_info"/>
     <div class="content-background">
         <div class="content">

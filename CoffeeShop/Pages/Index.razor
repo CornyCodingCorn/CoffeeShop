@@ -1,49 +1,101 @@
 ﻿@page "/"
 @using CoffeeShop.Services.Interfaces
-@inject INewsService NewService
+
+@inject INewsService NewsService
+@inject INotificationService NoticeService
 
 @using NewsInfo = CoffeeShop.Services.Interfaces.INewsService.Info;
 
 <div class="background">
-    <div class="title">
-        <div class="title-background gradient-background">
-            <h1 class="title-text title-item">HARDCORE COFFEE</h1>
-            <div class="center-row-div">
-                <img class="title-icon title-item" src="images/cup.png" alt="cup"/>
+    <div style="overflow: hidden">
+        <div class="title">
+            <div class="title-background gradient-background">
+                <h1 class="title-text title-item">HARDCORE COFFEE</h1>
+                <div class="center-row-div">
+                    <img class="title-icon title-item" src="images/cup.png" alt="cup"/>
+                </div>
+                <h3 class="title-bottom-text title-item">Coffee for giga chads and turns man into giga chad</h3>
             </div>
-            <h3 class="title-bottom-text title-item">Coffee for giga chads and turns man into giga chad</h3>
         </div>
     </div>
     <h1 class="section-label gradient-background">Hot News</h1>
-    <div id="news-container">
+    <div id="news-container" class="info-container">
         @foreach (var info in _queriedNews)
         {
             <NewsElement Info="@info"/>
         }
     </div>
     <div class="center-row-div load-more-div">
-        <Button Text="Load more"></Button>
+        <Button OnClickCallback="@(() => { LoadMoreNews(3); })" Text="Load more"></Button>
     </div>
     <h1 class="section-label gradient-background">Promotions</h1>
+    <div id="promotions-container" class="info-container">
+        @foreach (var info in _queriedPromotions)
+        {
+            <NewsElement Info="@info"/>
+        }
+    </div>
+    <div class="center-row-div load-more-div">
+        <Button OnClickCallback="@(() => { LoadMorePromotion(3); })" Text="Load more"></Button>
+    </div>
 </div>
 
 @code {
     private readonly List<NewsInfo> _queriedNews = new();
+    private readonly List<NewsInfo> _queriedPromotions = new();
+    private int _currentNews = 0;
+    private int _currentPromotion = 0;
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
         
-        var news = NewService.GetNews(0, 5);
+        LoadMoreNews(2);
+        LoadMorePromotion(2);
+    }
+
+    private void LoadMoreNews(int length)
+    {
+        var news = NewsService.GetNews(_currentNews, length);
+        if (news.Length == 0)
+        {
+            Console.WriteLine("No more news");
+            NoticeService.Info("Hi", "This is a notice hi hi hi");
+        }
+        
+        _currentNews += news.Length;
         AppendNews(news);
+    }
+
+    private void LoadMorePromotion(int length)
+    {
+        var promotions = NewsService.GetPromotion(_currentPromotion, length);
+        if (promotions.Length == 0)
+        {
+            Console.WriteLine("No more promotion");
+            NoticeService.Warn("Warnninininini", "This is a notice");
+        }
+        
+        _currentPromotion += promotions.Length;
+        AppendPromotions(promotions);
     }
 
     private void AppendNews(IEnumerable<NewsInfo> infos)
     {
         foreach (var info in infos)
         {
-            info.Flip = _queriedNews.Count % 2 != 0;
+            info.Flip = false;
             _queriedNews.Add(info);
+        }
+    }
+
+    private void AppendPromotions(IEnumerable<NewsInfo> infos)
+    {
+        
+        foreach (var info in infos)
+        {
+            info.Flip = true;
+            _queriedPromotions.Add(info);
         }
     }
 }
