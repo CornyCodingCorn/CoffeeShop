@@ -21,4 +21,5 @@ public interface INewsService
     }
 
     public Info[] GetNews(int start, int length);
+    public Info[] GetPromotion(int start, int length);
 }

@@ -1,0 +1,88 @@
+.notification-popup {
+    --notification-width: 300px;
+    display: flex;
+    flex-direction: column;
+    
+    position: fixed;
+    right: -40px;
+    top: 0;
+    width: var(--notification-width);
+    height: 117px;
+    transition: margin-right 0.5s ease-in-out;
+    z-index: 100;
+}
+
+.notice-text {
+    user-select: none;
+    color: var(--text-color)
+}
+
+.notice-text.notice-title {
+    padding-left: 30px;
+    font-family: "RobotoMono Nerd Font", serif;
+    font-weight: bolder;
+    text-transform: uppercase;
+    font-size: 17px;
+}
+
+.notice-text.notice-content {
+    padding-left: 30px;
+    width: 205px;
+    word-break: break-word;
+    text-justify: inter-character;
+    text-align: justify;
+    font-size: 14px
+}
+
+.content-div {
+    flex-grow: 1;
+    padding: 5px 0;
+}
+
+.title-div {
+    background: var(--btn-color);
+    padding: 5px 0;
+}
+
+.title-div.info {
+    background: var(--pop-up-info-title);
+}
+
+.title-div.warn {
+    background: var(--pop-up-warn-title);
+}
+
+.title-div.danger {
+    background: var(--pop-up-danger-title);
+}
+
+.notification-duration-container {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.notification-duration {
+    height: 4px;
+    background: var(--text-color);
+    width: 100%;
+}
+
+.notification-duration.start {
+    width: 0;
+}
+
+.notification-popup.info {
+    background: var(--pop-up-info);
+}
+
+.notification-popup.warn {
+    background: var(--pop-up-warn);
+}
+
+.notification-popup.danger {
+    background: var(--pop-up-danger);
+}
+
+.notification-popup.hidden {
+    margin-right: calc(var(--notification-width) * -1);
+}

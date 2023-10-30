@@ -11,7 +11,7 @@
 @*     </div> *@
 @* </div> *@
 <div id="news-element">
-    <div id="news-container" >
+    <div id="news-container" class="@(Info.Flip ? "flip" : "")" >
         <div id="news-image-container" class="collapsed @GetState()" >
             <img id="news-image" src="@Info.ImageUrl" alt="news image" />
         </div>
