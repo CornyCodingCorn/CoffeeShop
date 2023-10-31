@@ -61,6 +61,19 @@
     flex-direction: row-reverse;
 }
 
+.notification-duration-container.info {
+    background: var(--pop-up-info-title);
+}
+
+
+.notification-duration-container.warn {
+    background: var(--pop-up-warn-title);
+}
+
+.notification-duration-container.danger {
+    background: var(--pop-up-danger-title);
+}
+
 .notification-duration {
     height: 4px;
     background: var(--text-color);
