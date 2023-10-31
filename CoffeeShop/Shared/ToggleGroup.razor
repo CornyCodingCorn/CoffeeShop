@@ -22,17 +22,22 @@
 
     [Parameter]
     public Item[] Items { get; set; } = default!;
+    [Parameter]
+    public int SelectedIndex { get; set; }
+    [Parameter]
+    public EventCallback<int> SelectedIndexChanged { get; set; }
 
-    private int _selectedIndex = 0;
-
-    private void OnToggle(Item item, int index)
+    private async void OnToggle(Item item, int index)
     {
-        if (index != _selectedIndex) item.Toggled(item.Name);
-        _selectedIndex = index;
+        var isNewValue = index != SelectedIndex;
+        SelectedIndex = index;
+        await SelectedIndexChanged.InvokeAsync(SelectedIndex);
+        
+        if (isNewValue) item.Toggled(item.Name);
     }
 
     private bool IsToggled(int index)
     {
-        return index == _selectedIndex;
+        return index == SelectedIndex;
     }
 }

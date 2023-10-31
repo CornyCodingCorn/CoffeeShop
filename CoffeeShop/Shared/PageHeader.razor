@@ -6,7 +6,7 @@
             <img class="brand-icon" src="images/flag.jpg" alt="flag image"/>
             <h3 class="brand-text">@BrandName</h3>
         </div>
-        <ToggleGroup Items="@GenerateItems()"></ToggleGroup>
+        <ToggleGroup @bind-SelectedIndex="_selectedIndex" Items="@GenerateItems()"></ToggleGroup>
     </div>
     <div class="pad pad-screen-media"></div>
 </header>
@@ -32,7 +32,21 @@
 
     [Parameter]
     public PageInfo[] PagesInfo { get; set; } = default!;
+
+    private int _selectedIndex = 0;
     
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        if (!firstRender) return;
+        UpdateUiToCurrentPath();
+        
+        NavigationManager.LocationChanged += (_, _) =>
+        {
+            UpdateUiToCurrentPath();
+        };
+    }
+
     private ToggleGroup.Item[] GenerateItems()
     {
         var items = new ToggleGroup.Item[PagesInfo.Length];
@@ -53,5 +67,20 @@
     private void HandleToggle(string path)
     {
         NavigationManager.NavigateTo(path);
+    }
+
+    private void UpdateUiToCurrentPath()
+    {
+        var selectedPath = PagesInfo[_selectedIndex].Path;
+        var currentPath = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+        if (selectedPath == currentPath) return;
+
+        for (var i = 0; i < PagesInfo.Length; i++)
+        {
+            if (PagesInfo[i].Path != currentPath) continue;
+
+            _selectedIndex = i;
+            StateHasChanged();
+        }
     }
 }

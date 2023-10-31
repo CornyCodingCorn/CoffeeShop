@@ -1,0 +1,6 @@
+.menu {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    height: calc(100vh - var(--header-menu-height) - var(--brand-height) - var(--footer-height));
+}
