@@ -2,6 +2,7 @@
 @using CoffeeShop.Services.Interfaces;
 @using CoffeeShop.Shared.ComponentInterfaces;
 @using CoffeeShop.Shared.Notification;
+@using CoffeeShop.Utilities
 
 @inject IJsHelper JsHelper
 
@@ -17,8 +18,13 @@
         <div class="content">
             @Body
         </div>
-        <div id="scroll-btn-div" class="component-warping-div scroll-btn-div-@(_hitFooter ? "absolute" : "fixed")">
-            <IconButton id="scroll-btn" @onpointerdown="ScrollToTop" ImagePos="IconButton.ImagePosition.Top" ImageSrc="images/arrow-up.png" ImageAlt="arrow image"></IconButton>
+        <div id="scroll-btn-div" 
+             class="scroll-btn-div component-warping-div scroll-btn-div-@(_hitFooter ? "absolute" : "fixed") @(_showScrollBtn ? "" : "hidden")">
+            <IconButton id="scroll-btn" 
+                        @onpointerdown="ScrollToTop" 
+                        ImagePos="IconButton.ImagePosition.Top" 
+                        ImageSrc="images/arrow-up.png" 
+                        ImageAlt="arrow image"></IconButton>
         </div>
     </div>
     <PageFooter @ref="_footerRef"/>
@@ -28,6 +34,7 @@
     
     private IRefComponent _footerRef = default!;
     private bool _hitFooter = false;
+    private bool _showScrollBtn = false;
 
     private IJSObjectReference _jsObserver = default!;
     private DotNetObjectReference<MainLayout> _thisRef = default!;
@@ -42,14 +49,15 @@
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
-        (_thisRef, _jsObserver) = await JsHelper.CreateVisibleTrigger(_footerRef.Reference, this, nameof(OnFooterVisible), nameof(OnFooterInvisible));
-    }
+        (_thisRef, _jsObserver) = await JsHelper.CreateVisibleTrigger(
+            _footerRef.Reference, 
+            this, 
+            nameof(OnFooterVisible), 
+            nameof(OnFooterInvisible)
+            );
 
-    private string GetScrollBtnClass()
-    {
-        return _hitFooter ? "scroll-btn-div-absolute" : "scroll-btn-div-fixed";
+        JsHelper.OnScroll += HandleOnScroll;
     }
-    
 
     [JSInvokable]
     public void OnFooterVisible()
@@ -81,4 +89,11 @@
         _thisRef.Dispose();
     }
 
+    public void HandleOnScroll(object? sender, ScrollEventArgs e)
+    {
+        var showBtn = e.ScrollY != 0;
+        if (showBtn == _showScrollBtn) return;
+        _showScrollBtn = showBtn;
+        StateHasChanged();
+    }
 }

@@ -7,7 +7,7 @@
     right: -40px;
     top: 0;
     width: var(--notification-width);
-    height: 117px;
+    height: calc(var(--header-menu-height) + var(--brand-height) +  2px);
     transition: margin-right 0.5s ease-in-out;
     z-index: 100;
 }

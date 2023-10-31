@@ -31,19 +31,14 @@ div.brand {
     column-gap: 10px;
 }
 
-div.menus {
-    display: flex;
-    flex-direction: row;
-    height: var(--header-menu-height);
-}
-
 ::deep .toggle-group {
     transform: translate(-1px);
 }
 
 ::deep button.custom-toggle-btn {
     border-radius: 0;
-    width: 150px;
+    width: 130px;
+    height: var(--header-menu-height);
     font-size: 17px;
     transform: skewX(-30deg) translate(14px, 0);
 }
