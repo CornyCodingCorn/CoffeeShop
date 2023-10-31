@@ -17,7 +17,7 @@
     </ItemGroup>
     
     <ItemGroup>
-      <Folder Include="Shared\MenuComponents\" />
+      <Folder Include="Shared\Menu\" />
     </ItemGroup>
     
 </Project>
