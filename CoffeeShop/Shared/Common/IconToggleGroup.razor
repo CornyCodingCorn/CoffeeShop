@@ -1,0 +1,35 @@
+@inject ILogger<IconToggleGroup> Logger;
+
+@inherits ToggleGroup
+
+<div class="toggle-group icon-toggle-group">
+    @for (var i = 0; i < Items.Length; i++)
+    {
+        var index = i;
+        var item = Items[index] as IconItem;
+        if (item == null)
+        {
+            Logger.LogWarning($"IconToggleGroup: Ignored item at index {i} because it's not of type IconItem");
+            continue;
+        }
+        
+        <IconToggleButton Text="@item.Name"
+                          @onclick="_ => OnToggle(item, index)"
+                          IsToggled="@IsToggled(index)"
+                          ImageSrc="@item.ImageSrc"
+                          ImageAlt="@item.ImageAlt"
+                          ImagePos="@item.ImagePos">
+        </IconToggleButton>
+    }
+</div>
+
+@code {
+    
+    public class IconItem : Item
+    {
+        public string ImageSrc { get; init; } = string.Empty;
+        public string ImageAlt { get; init; } = "Image not found";
+        public IconButton.ImagePosition ImagePos { get; init; } = IconButton.ImagePosition.Right;
+    }
+    
+}

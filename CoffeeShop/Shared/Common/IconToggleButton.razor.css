@@ -1,0 +1,11 @@
+::deep .icon-btn.toggled {
+    background-color: var(--toggle-btn-color);
+}
+
+::deep .icon-btn.toggled:hover {
+    background-color: var(--toggle-btn-hover-color, black);
+}
+
+::deep .icon-btn.toggled:active {
+    background-color: var(--toggle-btn-click-color, red);
+}

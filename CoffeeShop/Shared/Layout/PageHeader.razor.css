@@ -32,7 +32,10 @@ div.brand {
 }
 
 ::deep .toggle-group {
+    display: flex;
+    flex-direction: row;
     transform: translate(-1px);
+    gap: 2px
 }
 
 ::deep button.custom-toggle-btn {
@@ -41,9 +44,15 @@ div.brand {
     height: var(--header-menu-height);
     font-size: 17px;
     transform: skewX(-30deg) translate(14px, 0);
+    justify-content: left;
+    gap: 10px;
 }
 
-::deep button.custom-toggle-btn div {
+::deep button.custom-toggle-btn span {
+    transform: skewX(30deg);
+}
+
+::deep button.custom-toggle-btn img {
     transform: skewX(30deg);
 }
 

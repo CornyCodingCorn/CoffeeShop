@@ -27,7 +27,7 @@
     [Parameter]
     public EventCallback<int> SelectedIndexChanged { get; set; }
 
-    private async void OnToggle(Item item, int index)
+    protected async void OnToggle(Item item, int index)
     {
         var isNewValue = index != SelectedIndex;
         SelectedIndex = index;
@@ -36,7 +36,7 @@
         if (isNewValue) item.Toggled(item.Name);
     }
 
-    private bool IsToggled(int index)
+    protected bool IsToggled(int index)
     {
         return index == SelectedIndex;
     }

@@ -1,0 +1,40 @@
+@inherits IconButton
+
+<div class="icon-toggle-btn-div">
+    @{
+        base.BuildRenderTree(__builder);
+    }
+</div>
+
+@code {
+
+    [Parameter]
+    public bool IsToggled { get; set; }
+
+    public IconToggleButton()
+    {
+        AdditionalAttributes ??= new Dictionary<string, object>();
+    }
+
+    protected override Task OnParametersSetAsync()
+    {
+        UpdateClass();
+        return base.OnParametersSetAsync();
+    }
+
+    private void UpdateClass()
+    {
+        const string attrName = "class";
+
+        if (AdditionalAttributes == null) return;
+        var result = AdditionalAttributes.ContainsKey(attrName);
+
+        var classStr = "icon-toggle-btn custom-toggle-btn icon-btn" + (IsToggled ? " toggled" : "");
+        if (result)
+            AdditionalAttributes[attrName] = classStr;
+        else
+            AdditionalAttributes.Add(attrName, classStr);
+        
+        StateHasChanged();
+    }
+}

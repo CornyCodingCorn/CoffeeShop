@@ -1,3 +1,5 @@
+@using IconItem = Common.IconToggleGroup.IconItem
+
 @inject NavigationManager NavigationManager
 
 <header>
@@ -6,7 +8,7 @@
             <img class="brand-icon" src="images/flag.jpg" alt="flag image"/>
             <h3 class="brand-text">@BrandName</h3>
         </div>
-        <ToggleGroup @bind-SelectedIndex="_selectedIndex" Items="@GenerateItems()"></ToggleGroup>
+        <IconToggleGroup @bind-SelectedIndex="_selectedIndex" Items="@GenerateItems()"></IconToggleGroup>
     </div>
     <div class="pad pad-screen-media"></div>
 </header>
@@ -17,13 +19,14 @@
     {
         public string Name { get; init; } = string.Empty;
         public string Path { get; init; } = string.Empty;
+        public string IconPath { get; init; } = "images/cup.png";
         
         public PageInfo() {}
-
-        public PageInfo(string name, string path)
+        public PageInfo(string name, string path, string iconPath = "images/cup.png")
         {
             Name = name;
             Path = path;
+            IconPath = iconPath;
         }
     }
     
@@ -54,10 +57,12 @@
         for (var i = 0; i < PagesInfo.Length; i++)
         {
             var info = PagesInfo[i];
-            items[i] = new ToggleGroup.Item
+            items[i] = new IconItem
             {
                 Name = info.Name,
-                Toggled = _ => HandleToggle(info.Path)
+                Toggled = _ => HandleToggle(info.Path),
+                ImageSrc = info.IconPath,
+                ImagePos = IconButton.ImagePosition.Left
             };
         }
 
