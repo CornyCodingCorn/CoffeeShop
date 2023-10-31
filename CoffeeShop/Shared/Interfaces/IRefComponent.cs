@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 
-namespace CoffeeShop.Shared.ComponentInterfaces;
+namespace CoffeeShop.Shared.Interfaces;
 
 public interface IRefComponent
 {

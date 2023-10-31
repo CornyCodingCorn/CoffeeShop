@@ -1,5 +1,7 @@
 using CoffeeShop.Services.Interfaces;
+using CoffeeShop.Utilities;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 
 namespace CoffeeShop.Services.Implementations;
@@ -8,11 +10,16 @@ public class JsHelper : IJsHelper
 {
     public IJSRuntime JsRuntime { get; }
     public Lazy<Task<IJSObjectReference>> HelperModule { get; }
+    public event EventHandler<ScrollEventArgs> OnScroll = default!;
+
+    private DotNetObjectReference<JsHelper> _reference; 
 
     public JsHelper(IJSRuntime jsRuntime)
     {
+        _reference = DotNetObjectReference.Create(this);
         JsRuntime = jsRuntime;
         HelperModule = new Lazy<Task<IJSObjectReference>>(() => JsRuntime.InvokeAsync<IJSObjectReference>("import", "./scripts/helper.js").AsTask());
+        Task.Run(async () => await RegisterOnScrollEvent());
     }
     
     public Task ScrollToY(float y)
@@ -59,5 +66,17 @@ public class JsHelper : IJsHelper
     {
         await JsRuntime.InvokeVoidAsync("clearCache");
     }
-    
+
+    private async Task RegisterOnScrollEvent()
+    {
+        var module = await HelperModule.Value;
+        await module.InvokeVoidAsync("registerOnScrollEvent", _reference, nameof(InvokeOnScroll));
+    }
+
+    [JSInvokable]
+    public void InvokeOnScroll(ScrollEventArgs e)
+    {
+        OnScroll.Invoke(this, e);
+    }
+
 }

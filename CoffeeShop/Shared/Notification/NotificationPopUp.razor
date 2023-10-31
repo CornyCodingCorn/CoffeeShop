@@ -1,5 +1,5 @@
 @using CoffeeShop.Services.Interfaces
-<div class="notification-popup @TypeToString(Type) @(_isHidden ? "hidden" : "") skew">
+<div class="notification-popup @TypeToString(Type) @(_isHidden ? "hidden" : "") skew" @onclick="Close">
     <div class="title-div @TypeToString(Type)">
         <div class="un-skew">
             <div class="notice-text notice-title">@Title</div>
@@ -9,7 +9,7 @@
         <div class="notice-text notice-content">@Content</div>
     </div>
 
-    <div class="notification-duration-container">
+    <div class="notification-duration-container @TypeToString(Type)">
         <div class="notification-duration @(_startDurationAnim ? "start" : "")" style="transition: all @(Duration * 1.25)s linear"></div>
     </div>
 </div>
@@ -44,12 +44,7 @@
             StateHasChanged();
             
             await Task.Delay((int)(Duration * 1000));
-            _isHidden = true;
-            StateHasChanged();
-            
-            // This is to wait for element to finish animation
-            await Task.Delay((int)(DelayBeforeCallback * 1000));
-            await OnExpired.InvokeAsync();
+            await Close();
         });
     }
 
@@ -62,5 +57,16 @@
             INotificationService.Type.Danger => "danger",
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
             };
+    }
+
+    private async Task Close()
+    {
+        if (_isHidden) return;
+        _isHidden = true;
+        StateHasChanged();
+        
+        // This is to wait for element to finish animation
+        await Task.Delay((int)(DelayBeforeCallback * 1000));
+        await OnExpired.InvokeAsync();
     }
 }

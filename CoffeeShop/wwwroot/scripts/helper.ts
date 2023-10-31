@@ -30,3 +30,14 @@ export function capturePointer(ref: Element, id: number) {
 export function releasePointer(ref: Element, id: number) {
     ref.releasePointerCapture(id);
 }
+
+export function registerOnScrollEvent(obj: DotNetObject, funcName: string) {
+    window.addEventListener("scroll", async (e: Event) => {
+        let scrollEvent = {
+            ...e,
+            ScrollX: window.scrollX,
+            ScrollY: window.scrollY,
+        }
+        await obj.invokeMethodAsync(funcName, scrollEvent);
+    })
+}

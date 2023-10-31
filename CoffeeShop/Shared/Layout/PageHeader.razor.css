@@ -31,24 +31,28 @@ div.brand {
     column-gap: 10px;
 }
 
-div.menus {
+::deep .toggle-group {
     display: flex;
     flex-direction: row;
-    height: var(--header-menu-height);
-}
-
-::deep .toggle-group {
     transform: translate(-1px);
+    gap: 2px
 }
 
 ::deep button.custom-toggle-btn {
     border-radius: 0;
-    width: 150px;
+    width: 130px;
+    height: var(--header-menu-height);
     font-size: 17px;
     transform: skewX(-30deg) translate(14px, 0);
+    justify-content: left;
+    gap: 10px;
 }
 
-::deep button.custom-toggle-btn div {
+::deep button.custom-toggle-btn span {
+    transform: skewX(30deg);
+}
+
+::deep button.custom-toggle-btn img {
     transform: skewX(30deg);
 }
 

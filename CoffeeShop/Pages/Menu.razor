@@ -1,7 +1,14 @@
 @page "/menu"
 
-<h3>Menu</h3>
+<div class="menu">
+    <div class="menu-categories-container menu-container">
+        <IconToggleButton @onclick="() => { _toggle = !_toggle; }" IsToggled="@_toggle"/>
+    </div>
+    <div class="menu-items-container menu-container">
+        
+    </div>
+</div>
 
 @code {
-    
+    private bool _toggle = false;
 }

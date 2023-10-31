@@ -1,0 +1,91 @@
+@using IconItem = Common.IconToggleGroup.IconItem
+
+@inject NavigationManager NavigationManager
+
+<header>
+    <div class="header">
+        <div class="brand">
+            <img class="brand-icon" src="images/flag.jpg" alt="flag image"/>
+            <h3 class="brand-text">@BrandName</h3>
+        </div>
+        <IconToggleGroup @bind-SelectedIndex="_selectedIndex" Items="@GenerateItems()"></IconToggleGroup>
+    </div>
+    <div class="pad pad-screen-media"></div>
+</header>
+
+@code {
+
+    public class PageInfo
+    {
+        public string Name { get; init; } = string.Empty;
+        public string Path { get; init; } = string.Empty;
+        public string IconPath { get; init; } = "images/cup.png";
+        
+        public PageInfo() {}
+        public PageInfo(string name, string path, string iconPath = "images/cup.png")
+        {
+            Name = name;
+            Path = path;
+            IconPath = iconPath;
+        }
+    }
+    
+    [Parameter]
+    public string BrandName { get; set; } = string.Empty;
+
+    [Parameter]
+    public PageInfo[] PagesInfo { get; set; } = default!;
+
+    private int _selectedIndex = 0;
+    
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        if (!firstRender) return;
+        UpdateUiToCurrentPath();
+        
+        NavigationManager.LocationChanged += (_, _) =>
+        {
+            UpdateUiToCurrentPath();
+        };
+    }
+
+    private ToggleGroup.Item[] GenerateItems()
+    {
+        var items = new ToggleGroup.Item[PagesInfo.Length];
+
+        for (var i = 0; i < PagesInfo.Length; i++)
+        {
+            var info = PagesInfo[i];
+            items[i] = new IconItem
+            {
+                Name = info.Name,
+                Toggled = _ => HandleToggle(info.Path),
+                ImageSrc = info.IconPath,
+                ImagePos = IconButton.ImagePosition.Left
+            };
+        }
+
+        return items;
+    }
+
+    private void HandleToggle(string path)
+    {
+        NavigationManager.NavigateTo(path);
+    }
+
+    private void UpdateUiToCurrentPath()
+    {
+        var selectedPath = PagesInfo[_selectedIndex].Path;
+        var currentPath = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+        if (selectedPath == currentPath) return;
+
+        for (var i = 0; i < PagesInfo.Length; i++)
+        {
+            if (PagesInfo[i].Path != currentPath) continue;
+
+            _selectedIndex = i;
+            StateHasChanged();
+        }
+    }
+}

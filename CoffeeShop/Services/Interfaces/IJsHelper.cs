@@ -1,4 +1,6 @@
+using CoffeeShop.Utilities;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 
 namespace CoffeeShop.Services.Interfaces;
@@ -7,6 +9,7 @@ public interface IJsHelper
 {
     public IJSRuntime JsRuntime { get; }
     public Lazy<Task<IJSObjectReference>> HelperModule { get; }
+    public event EventHandler<ScrollEventArgs> OnScroll; 
 
     public Task ScrollToY(float y);
     public Task ScrollToX(float x);
