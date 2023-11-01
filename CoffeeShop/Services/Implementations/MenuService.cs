@@ -129,7 +129,7 @@ public class MenuService : IMenuService
     public async Task<IEnumerable<MenuItem>> LoadItems(MenuCategory category)
     {
         // Call http client and get a respond
-        await Task.Delay(500);
+        await Task.Delay(100000);
         var dtos = _cachedItems;
 
         var results = new MenuItem[dtos.Length];

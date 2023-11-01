@@ -1,0 +1,13 @@
+<div class="loading-element">
+    @for (var i = 0; i < Count; i++)
+    {
+        <div class="loading-element-item" style="animation-delay: @(Duration / Count * i)s; animation-duration: @(Duration)s"></div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public uint Count { get; set; } = 6;
+    [Parameter]
+    public float Duration { get; set; }
+}

@@ -13,7 +13,7 @@
     <div class="menu-part">
         <MenuLabel Text="Categories"></MenuLabel>
         <div class="menu-categories-container menu-container">
-            <IconToggleGroup @bind-SelectedIndex="@_selectedIndex"
+            <MenuToggleGroup @bind-SelectedIndex="@_selectedIndex"
                              Items="@GenerateItems()"/>
         </div>
     </div>
@@ -22,7 +22,12 @@
         <div class="menu-items-container menu-container">
             @if (_displayingCategory != null)
             {
-                <div class="menu-items-padding"></div>
+                var isHaveItem = _displayingCategory.Items.Count > 0;
+                if (isHaveItem)
+                {
+                    <div class="menu-items-padding"></div>
+                }
+                
                 foreach (var item in _displayingCategory.Items)
                 {
                     <MenuItemButton Price="@item.Price"
@@ -31,12 +36,18 @@
                                     ImagePos="IconButton.ImagePosition.Top"
                                     ImageAlt="@($"Item {item.Name} image")"/>
                 }
-                <div class="menu-items-padding pad-bottom"></div>
+
+                if (isHaveItem)
+                {
+                    <div class="menu-items-padding pad-bottom"></div>
+                }
             }
-            else
+            
+            @if (_displayingCategory == null || _displayingCategory.Items.Count == 0)
             {
                 <div class="menu-loading-div">
-                    Hi, will add loading animation later
+                    <LoadingElement Count="10" Duration="1"></LoadingElement>
+                    <h1>Loading</h1>
                 </div>
             }
         </div>
