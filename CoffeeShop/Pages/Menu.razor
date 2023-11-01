@@ -1,6 +1,8 @@
 @page "/menu/{categoryPath?}"
 @using CoffeeShop.Services.Interfaces
 @using CoffeeShop.Services.Types
+@using CoffeeShop.Shared.Menu
+
 @using GroupItem = Shared.Common.ToggleGroup.Item
 @using IconGroupItem = Shared.Common.IconToggleGroup.IconItem
 
@@ -8,12 +10,36 @@
 @inject NavigationManager NavigationManager
 
 <div class="menu">
-    <div class="menu-categories-container menu-container">
-        <IconToggleGroup @bind-SelectedIndex="@_selectedIndex"
-                         Items="@GenerateItems()"/>
+    <div class="menu-part">
+        <MenuLabel Text="Categories"></MenuLabel>
+        <div class="menu-categories-container menu-container">
+            <IconToggleGroup @bind-SelectedIndex="@_selectedIndex"
+                             Items="@GenerateItems()"/>
+        </div>
     </div>
-    <div class="menu-items-container menu-container">
-        
+    <div class="menu-part menu-part-items">
+        <MenuLabel Text="@(_displayingCategory?.Name ?? "Loading")"></MenuLabel>
+        <div class="menu-items-container menu-container">
+            @if (_displayingCategory != null)
+            {
+                <div class="menu-items-padding"></div>
+                foreach (var item in _displayingCategory.Items)
+                {
+                    <MenuItemButton Price="@item.Price"
+                                    Currency="$"
+                                    ImageSrc="@item.ImageUrl"
+                                    ImagePos="IconButton.ImagePosition.Top"
+                                    ImageAlt="@($"Item {item.Name} image")"/>
+                }
+                <div class="menu-items-padding pad-bottom"></div>
+            }
+            else
+            {
+                <div class="menu-loading-div">
+                    Hi, will add loading animation later
+                </div>
+            }
+        </div>
     </div>
 </div>
 
@@ -22,9 +48,10 @@
     public string? CategoryPath { get; set; }
 
     private List<MenuCategory> _data = new List<MenuCategory>();
-    private MenuCategory _displayingCategory = default!;
+    private MenuCategory? _displayingCategory;
     private int _selectedIndex;
 
+    
     protected override void OnAfterRender(bool firstRender)
     {
         base.OnAfterRender(firstRender);
@@ -93,8 +120,8 @@
 
     private async Task FetchItemsForCurrentDisplay(bool forceRefresh = false)
     {
-        if (_displayingCategory.Items.Count > 0 && !forceRefresh) return;
-        _displayingCategory.Items = new List<MenuItem>(await Service.LoadItems(_displayingCategory));
+        if ((_displayingCategory == null || _displayingCategory.Items.Count > 0) && !forceRefresh) return;
+        _displayingCategory!.Items = new List<MenuItem>(await Service.LoadItems(_displayingCategory));
         StateHasChanged();
     }
 

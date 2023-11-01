@@ -17,8 +17,8 @@ img.brand-icon {
 .brand-text {
     color: var(--brand-color);
     font-weight: bolder;
-    font-size: 25px;
-    font-family: "Source Code Pro", serif;
+    font-size: 17px;
+    font-family: "Team401", serif;
     user-select: none;
 }
 
@@ -52,7 +52,7 @@ div.brand {
     gap: 10px;
 }
 
-::deep button.custom-toggle-btn span {
+::deep button.custom-toggle-btn div {
     transform: skewX(30deg);
 }
 

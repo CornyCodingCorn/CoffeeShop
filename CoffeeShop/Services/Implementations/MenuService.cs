@@ -29,6 +29,87 @@ public class MenuService : IMenuService
             Name = "Cakes"
         },
     };
+
+    private ItemDto[] _cachedItems = new[]
+    {
+        new ItemDto
+        {
+            Name = "Black coffee",
+            Price = 20,
+            ImageUrl =
+                "https://empire-s3-production.bobvila.com/articles/wp-content/uploads/2020/08/best_coffee_mug.jpg"
+        },
+        new ItemDto
+        {
+            Name = "Black coffee",
+            Price = 20,
+            ImageUrl =
+                "https://empire-s3-production.bobvila.com/articles/wp-content/uploads/2020/08/best_coffee_mug.jpg"
+        },
+        new ItemDto
+        {
+            Name = "Black coffee",
+            Price = 20,
+            ImageUrl =
+                "https://empire-s3-production.bobvila.com/articles/wp-content/uploads/2020/08/best_coffee_mug.jpg"
+        },
+        new ItemDto
+        {
+            Name = "Black coffee",
+            Price = 20,
+            ImageUrl =
+                "https://empire-s3-production.bobvila.com/articles/wp-content/uploads/2020/08/best_coffee_mug.jpg"
+        },
+        new ItemDto
+        {
+            Name = "Black coffee",
+            Price = 20,
+            ImageUrl =
+                "https://empire-s3-production.bobvila.com/articles/wp-content/uploads/2020/08/best_coffee_mug.jpg"
+        },
+        new ItemDto
+        {
+            Name = "Black coffee",
+            Price = 20,
+            ImageUrl =
+                "https://empire-s3-production.bobvila.com/articles/wp-content/uploads/2020/08/best_coffee_mug.jpg"
+        },
+        new ItemDto
+        {
+            Name = "Black coffee",
+            Price = 20,
+            ImageUrl =
+                "https://empire-s3-production.bobvila.com/articles/wp-content/uploads/2020/08/best_coffee_mug.jpg"
+        },
+        new ItemDto
+        {
+            Name = "Black coffee",
+            Price = 20,
+            ImageUrl =
+                "https://empire-s3-production.bobvila.com/articles/wp-content/uploads/2020/08/best_coffee_mug.jpg"
+        },
+        new ItemDto
+        {
+            Name = "Black coffee",
+            Price = 20,
+            ImageUrl =
+                "https://empire-s3-production.bobvila.com/articles/wp-content/uploads/2020/08/best_coffee_mug.jpg"
+        },
+        new ItemDto
+        {
+            Name = "Black coffee",
+            Price = 20,
+            ImageUrl =
+                "https://empire-s3-production.bobvila.com/articles/wp-content/uploads/2020/08/best_coffee_mug.jpg"
+        },
+        new ItemDto
+        {
+            Name = "Black coffee",
+            Price = 20,
+            ImageUrl =
+                "https://empire-s3-production.bobvila.com/articles/wp-content/uploads/2020/08/best_coffee_mug.jpg"
+        },
+    };
     
     public async Task<IEnumerable<MenuCategory>> LoadCategories()
     {
@@ -49,7 +130,14 @@ public class MenuService : IMenuService
     {
         // Call http client and get a respond
         await Task.Delay(500);
-        
-        return null;
+        var dtos = _cachedItems;
+
+        var results = new MenuItem[dtos.Length];
+        for (var i = 0; i < dtos.Length; i++)
+        {
+            results[i] = new MenuItem(dtos[i]);
+        }
+
+        return results;
     }
 }
