@@ -31,6 +31,10 @@ div.brand {
     column-gap: 10px;
 }
 
+::deep .icon-btn {
+    --icon-size: 16px;
+}
+
 ::deep .toggle-group {
     display: flex;
     flex-direction: row;

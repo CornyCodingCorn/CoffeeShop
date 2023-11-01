@@ -40,10 +40,10 @@
     private DotNetObjectReference<MainLayout> _thisRef = default!;
 
     private readonly PageInfo[] _info = {
-        new("Home", ""),
-        new("Menu", "menu"),
-        new("Shops", "shops"),
-        new("History", "history")
+        new("Home", "", "images/page-icons/home.png"),
+        new("Menu", "menu", "images/page-icons/menu.png"),
+        new("Shops", "shops","images/page-icons/shops.png"),
+        new("History", "history", "images/page-icons/scroll.png")
     };
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
