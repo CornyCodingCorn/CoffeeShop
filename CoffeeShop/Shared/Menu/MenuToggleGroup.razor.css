@@ -29,6 +29,7 @@
 ::deep button.custom-toggle-btn.toggled {
     border-radius: 0;
     width: 250px;
+    margin-left: 2px;
 }
 
 ::deep button.custom-toggle-btn div {
@@ -39,5 +40,3 @@
 ::deep button.custom-toggle-btn img {
     display: none;
 }
-
-::deep button.custom-toggle-btn 
