@@ -77,7 +77,7 @@
     private void UpdateUiToCurrentPath()
     {
         var selectedPath = PagesInfo[_selectedIndex].Path;
-        var currentPath = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+        var currentPath = NavigationManager.ToBaseRelativePath(NavigationManager.Uri).Split("/").First();
         if (selectedPath == currentPath) return;
 
         for (var i = 0; i < PagesInfo.Length; i++)
