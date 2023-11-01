@@ -3,7 +3,7 @@
     flex-direction: row;
     height: fit-content;
     
-    animation: 2s appear;
+    animation: 1.5s appear;
     opacity: 1;
 }
 
@@ -23,7 +23,8 @@
 }
 
 .loading-element-item {
-    background-color: var(--btn-color);
+    background: linear-gradient(0deg, var(--btn-color) 0%,
+    var(--toggle-btn-color) 100%);
     width: 1.5vw;
     height: 75px;
     animation-duration: 4s;
