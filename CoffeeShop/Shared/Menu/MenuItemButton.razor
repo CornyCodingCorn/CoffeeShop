@@ -1,0 +1,25 @@
+@inherits IconButton
+
+<div class="menu-item-btn">
+    <div class="menu-item-name">@Name</div>
+    @{
+        base.BuildRenderTree(__builder);
+    }
+</div>
+
+@code {
+    [Parameter]
+    public decimal Price { get; set; }
+    [Parameter]
+    public string Currency { get; set; } = "$";
+
+    [Parameter]
+    public string Name { get; set; } = "Coffee Name";
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        Text = $"{Currency} {Price:#0.00}";
+    }
+
+}

@@ -5,15 +5,28 @@
     gap: 20px;
 }
 
+.menu-part {
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+}
+
+.menu-part-items {
+    flex-grow: 1
+}
+
 .menu-container {
     border-radius: 5px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .menu-categories-container {
     background: var(--text-color);
-    width: 300px;
-    margin: 20px 0 20px 20px;
+    overflow-x: visible;
+    min-width: 250px;
+    max-width: 250px;
+    margin: 0 0 20px 20px;
+    padding: 30px 0;
 }
 
 .menu-items-container {
@@ -21,6 +34,46 @@
     flex-direction: row;
     flex-wrap: wrap;
     background: var(--text-color);
+    margin: 0 20px 20px 0;
+    gap: 30px;
+    padding: 0 30px;
+    justify-content: center;
     flex-grow: 1;
-    margin: 20px 20px 20px 0;
+}
+
+.menu-items-padding {
+    position: sticky;
+    top: 0;
+    bottom: 0;
+    height: 30px;
+    width: 100%;
+    margin-bottom: -30px;
+    background: linear-gradient(180deg, var(--text-color) 40%,
+    rgba(0, 0, 0, 0) 100%);
+}
+
+.menu-items-padding.pad-bottom {
+    background: linear-gradient(0deg, var(--text-color) 40%,
+    rgba(0, 0, 0, 0) 100%);
+}
+
+::deep .menu-label {
+    margin: 20px 30px 0 50px;
+}
+
+.menu-loading-div {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+
+.menu-loading-div h1 {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: "Team401", serif;
+    font-size: 18px;
+    margin-top: 50px;
+    color: var(--btn-color)
 }

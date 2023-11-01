@@ -1,14 +1,154 @@
-@page "/menu"
+@page "/menu/{categoryPath?}"
+@using CoffeeShop.Services.Interfaces
+@using CoffeeShop.Services.Types
+@using CoffeeShop.Shared.Menu
+
+@using GroupItem = Shared.Common.ToggleGroup.Item
+@using IconGroupItem = Shared.Common.IconToggleGroup.IconItem
+
+@inject IMenuService Service
+@inject NavigationManager NavigationManager
 
 <div class="menu">
-    <div class="menu-categories-container menu-container">
-        <IconToggleButton @onclick="() => { _toggle = !_toggle; }" IsToggled="@_toggle"/>
+    <div class="menu-part">
+        <MenuLabel Text="Categories"></MenuLabel>
+        <div class="menu-categories-container menu-container">
+            <MenuToggleGroup @bind-SelectedIndex="@_selectedIndex"
+                             Items="@GenerateItems()"/>
+        </div>
     </div>
-    <div class="menu-items-container menu-container">
-        
+    <div class="menu-part menu-part-items">
+        <MenuLabel Text="@(_displayingCategory?.Name ?? "Loading")"></MenuLabel>
+        <div class="menu-items-container menu-container">
+            @if (_displayingCategory != null)
+            {
+                var isHaveItem = _displayingCategory.Items.Count > 0;
+                if (isHaveItem)
+                {
+                    <div class="menu-items-padding"></div>
+                }
+                
+                foreach (var item in _displayingCategory.Items)
+                {
+                    <MenuItemButton Price="@item.Price"
+                                    Currency="$"
+                                    ImageSrc="@item.ImageUrl"
+                                    ImagePos="IconButton.ImagePosition.Top"
+                                    ImageAlt="@($"Item {item.Name} image")"/>
+                }
+
+                if (isHaveItem)
+                {
+                    <div class="menu-items-padding pad-bottom"></div>
+                }
+            }
+            
+            @if (_displayingCategory == null || _displayingCategory.Items.Count == 0)
+            {
+                <div class="menu-loading-div">
+                    <LoadingElement Count="10" Duration="1"></LoadingElement>
+                    <h1>Loading</h1>
+                </div>
+            }
+        </div>
     </div>
 </div>
 
 @code {
-    private bool _toggle = false;
+    [Parameter]
+    public string? CategoryPath { get; set; }
+
+    private List<MenuCategory> _data = new List<MenuCategory>();
+    private MenuCategory? _displayingCategory;
+    private int _selectedIndex;
+
+    
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        
+        if (!firstRender) return;
+        Task.Run(async () =>
+        {
+            _data = new List<MenuCategory>(await Service.LoadCategories());
+            UpdateUi();
+        });
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        UpdateUi();
+    }
+
+    private GroupItem[] GenerateItems()
+    {
+        var items = new GroupItem[_data.Count];
+
+        for (var i = 0; i < _data.Count; i++)
+        {
+            var info = _data[i];
+            items[i] = new IconGroupItem()
+            {
+                Name = info.Name,
+                Toggled = _ => NavigateToCategory(info),
+                ImagePos = IconButton.ImagePosition.Left
+            };
+        }
+
+        return items;
+    }
+
+    private void UpdateUi()
+    {
+        if (_data.Count == 0) return;
+        
+        MenuCategory? matchingCategory = null;
+        int index;
+
+        for (index = 0; index < _data.Count; index++)
+        {
+            if (!CompareNameAndPath(_data[index].Name, CategoryPath)) continue;
+            matchingCategory = _data[index];
+            break;
+        }
+        
+        if (matchingCategory == null)
+        {
+            matchingCategory = _data.First();
+            index = 0;
+        }
+
+        _displayingCategory = matchingCategory;
+        _selectedIndex = index;
+        StateHasChanged();
+        
+        Task.Run(async () =>
+        {
+            await FetchItemsForCurrentDisplay();
+        });
+    }
+
+    private async Task FetchItemsForCurrentDisplay(bool forceRefresh = false)
+    {
+        if ((_displayingCategory == null || _displayingCategory.Items.Count > 0) && !forceRefresh) return;
+        _displayingCategory!.Items = new List<MenuItem>(await Service.LoadItems(_displayingCategory));
+        StateHasChanged();
+    }
+
+    private void NavigateToCategory(MenuCategory category)
+    {
+        NavigationManager.NavigateTo($"/menu/{ConvertNameToPath(category.Name)}");
+    }
+
+    private static bool CompareNameAndPath(string name, string? path)
+    {
+        var processedName = ConvertNameToPath(name);
+        return processedName == path;
+    }
+
+    private static string ConvertNameToPath(string name)
+    {
+        return name.Replace(' ', '_').ToLower();
+    }
 }

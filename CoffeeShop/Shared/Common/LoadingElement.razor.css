@@ -1,0 +1,41 @@
+.loading-element {
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+    
+    animation: 2s appear;
+    opacity: 1;
+}
+
+@keyframes appear {
+    0% {
+        transform: scaleX(0);
+        opacity: 0
+    }
+    50% {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+    100% { 
+        transform: scaleX(100%);
+        opacity: 1; 
+    }
+}
+
+.loading-element-item {
+    background-color: var(--btn-color);
+    width: 1.5vw;
+    height: 75px;
+    animation-duration: 4s;
+    animation-name: loadingAnim;
+    animation-iteration-count: infinite;
+    animation-direction: alternate-reverse;
+    animation-timing-function: ease-in-out;
+    animation-delay: 1s;
+    transform: skewX(30deg);
+}
+
+@keyframes loadingAnim {
+    0% { transform: scaleY(100%) skewX(-30deg) }
+    100% { transform: scaleY(-100%) skewX(30deg)}
+}

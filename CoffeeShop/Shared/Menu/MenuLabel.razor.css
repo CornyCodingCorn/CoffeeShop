@@ -1,0 +1,17 @@
+.menu-label {
+    transform: skewX(-30deg);
+    background: linear-gradient(90deg, var(--header-footer-color-1) 0%,
+    var(--header-footer-color-2) 100%);
+}
+
+.menu-label-text {
+    width: 100%;
+    text-align: center;
+    transform: skewX(30deg);
+    font-size: 12px;
+    font-weight: bold;
+    font-family: "Team401", serif;
+    
+    color: var(--text-color);
+    margin: 10px 0;
+}

@@ -3,7 +3,7 @@
 @implements CoffeeShop.Shared.Interfaces.IRefComponent;
 
 <button class="icon-btn" @ref="Reference" style="flex-direction: @GetFlexDirection()" @attributes="AdditionalAttributes">
-    <span class="icon-btn-text">@Text</span>
+    <div class="icon-btn-text">@Text</div>
     @if (ImageSrc != string.Empty)
     {
         <img class="icon-btn-image" src="@ImageSrc" alt="@ImageAlt"/>
