@@ -1,9 +1,12 @@
 .menu-item-btn {
     height: fit-content;
-    background: var(--btn-color);
+    background: linear-gradient(-30deg, var(--btn-color) 20%,
+    var(--header-footer-color-2) 100%);
     padding: 15px;
     border-radius: 5px;
-    transition: background-color 0.1s ease-in-out;
+    transition-property: background-color, transform;
+    transition-duration: 0.15s;
+    transition-timing-function: ease-in-out;
 }
 
 .menu-item-name {
@@ -17,11 +20,15 @@
 }
 
 .menu-item-btn:hover {
-    background: var(--btn-hover-color);
+    background: linear-gradient(-30deg, var(--btn-hover-color) 20%,
+    var(--btn-color) 100%);
+    transform: scale(115%);
 }
 
 .menu-item-btn:active {
-    background: var(--btn-click-color);
+    background: linear-gradient(-30deg, var(--btn-click-color) 20%,
+    var(--btn-hover-color) 100%);
+    transform: scale(125%);
 }
 
 ::deep .icon-btn {

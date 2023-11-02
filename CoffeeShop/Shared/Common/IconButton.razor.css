@@ -34,6 +34,7 @@
 
 .icon-btn-image {
     object-fit: cover;
+    pointer-events: none;
     width: var(--icon-size);
     height: var(--icon-size);
 }
