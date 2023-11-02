@@ -1,0 +1,102 @@
+@using CoffeeShop.Services.Types
+@using System.Timers
+@using CoffeeShop.Services.Interfaces
+@using CoffeeShop.Utilities
+
+@inject IMenuService Service
+@inject INotificationService NoticeService
+
+<div class="menu-order-form" @attributes="AdditionalAttributes">
+    <div class="menu-order-description">
+        <div class="text-div title">
+            <h2 class="menu-order-title un-skew">Ordering: @Item.Name</h2>
+        </div>
+        <p class="menu-order-text">@((MarkupString)Item.Description)</p>
+        <div class="menu-order-complete-container">
+            <div class="flex-grow">
+                <div class="text-div price">
+                    <h3 class="menu-order-price skew">Price: @Currency @Item.Price.ToString("#0.00")</h3>
+                </div>
+            </div>
+            <Button Text="Confirm" OnClickCallback="@PlaceOrder"></Button>
+            <Button class="custom-btn danger-btn" Text="Cancel" OnClickCallback="@OnCancel"></Button>
+        </div>
+    </div>
+    <div class="menu-order-image-viewer">
+        <ComplexImageViewer ImageUrls="@Item.ImageUrls"
+                     @bind-ImageIndex="_imageIndex"
+                     IsVertical="false"
+                     @onpointerenter="_ => _tempDisableAutoShow = true"
+                     @onpointerleave="_ => _tempDisableAutoShow = false"/>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public MenuItem Item { get; set; } = default!;
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+    [Parameter]
+    public bool AutoShowImage { get; set; } = true;
+    [Parameter]
+    public float DelayBetweenImages { get; set; } = 5;
+    [Parameter]
+    public string Currency { get; set; } = "$";
+    [Parameter]
+    public EventCallback OnCancel { get; set; }
+    [Parameter]
+    public EventCallback OnConfirm { get; set; }
+
+    private Timer? _showNextPicture;
+    private float _currentDelay;
+    private bool _tempDisableAutoShow = false;
+
+    private uint _imageIndex;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        if (!firstRender) return;
+
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (MathFEx.EqualEnough(_currentDelay, DelayBetweenImages)) return;
+        
+        _showNextPicture?.Stop();
+        _showNextPicture?.Dispose();
+            
+        _showNextPicture = new Timer(DelayBetweenImages * 1000);
+        _showNextPicture.Elapsed += (_, _) => ShowNextPicture();
+        _showNextPicture.Start();
+        _currentDelay = DelayBetweenImages;
+    }
+
+    private void ShowNextPicture()
+    {
+        if (!AutoShowImage || _tempDisableAutoShow) return;
+        
+        _imageIndex = (_imageIndex + 1) % (uint)Item.ImageUrls.Length;
+        StateHasChanged();
+    }
+
+    private void PlaceOrder()
+    {
+        Task.Run(async () =>
+        {
+            NoticeService.Info("Ordering", "Your order is being processed");
+            
+            var result = await Service.OrderItem(Item);
+            if (result)
+                NoticeService.Info("Order", "Your order has been completed");
+            else
+                NoticeService.Danger("Order", "Your order didn't complete");
+        });
+
+        OnConfirm.InvokeAsync();
+    }
+}

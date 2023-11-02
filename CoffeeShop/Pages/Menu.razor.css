@@ -1,8 +1,10 @@
 .menu {
+    position: relative;
+    
     display: flex;
     flex-direction: row;
     height: calc(100vh - var(--header-menu-height) - var(--brand-height));
-    gap: 20px;
+    gap: 40px;
 }
 
 .menu-part {
@@ -25,7 +27,7 @@
     overflow-x: visible;
     min-width: 250px;
     max-width: 250px;
-    margin: 0 0 20px 20px;
+    margin: 0 0 50px 70px;
     padding: 30px 0;
 }
 
@@ -34,7 +36,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     background: var(--text-color);
-    margin: 0 20px 20px 0;
+    margin: 0 70px 50px 0;
     gap: 30px;
     padding: 0 30px;
     justify-content: center;
@@ -57,8 +59,12 @@
     rgba(0, 0, 0, 0) 100%);
 }
 
-::deep .menu-label {
-    margin: 20px 30px 0 50px;
+::deep .menu-part-container .menu-label {
+    margin: 20px 10px 0 100px;
+}
+
+::deep .menu-part-items .menu-label {
+    margin: 20px 90px 0 50px;
 }
 
 .menu-loading-div {
@@ -66,14 +72,4 @@
     justify-content: center;
     align-content: center;
     flex-direction: column;
-}
-
-.menu-loading-div h1 {
-    text-align: center;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-family: "Team401", serif;
-    font-size: 18px;
-    margin-top: 50px;
-    color: var(--btn-color)
 }

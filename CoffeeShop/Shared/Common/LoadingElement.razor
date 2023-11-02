@@ -1,7 +1,12 @@
 <div class="loading-element">
     @for (var i = 0; i < Count; i++)
     {
-        <div class="loading-element-item" style="animation-delay: @(Duration / Count * i)s; animation-duration: @(Duration)s"></div>
+        <div class="loading-element-item" style="animation-delay: @(Duration / Count * i)s; animation-duration: @(Duration)s">
+            @if (PadStart <= i && i < PadStart + Text.Length)
+            {
+                <p style="animation-delay: @(Duration / Count * i)s; animation-duration: @(Duration)s">@Text[i - PadStart]</p>
+            }
+        </div>
     }
 </div>
 
@@ -10,4 +15,8 @@
     public uint Count { get; set; } = 6;
     [Parameter]
     public float Duration { get; set; }
+    [Parameter]
+    public string Text { get; set; } = "LOADING";
+
+    private int PadStart => ((int)Count - Text.Length) / 2;
 }

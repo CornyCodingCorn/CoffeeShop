@@ -34,82 +34,87 @@ public class MenuService : IMenuService
     {
         new ItemDto
         {
-            Name = "Black coffee",
+            Name = "Café au lait",
             Price = 20,
+            Description = _itemDes,
             ImageUrl =
-                "https://empire-s3-production.bobvila.com/articles/wp-content/uploads/2020/08/best_coffee_mug.jpg"
+                "http://clipart-library.com/images/pc7r5rbLi.jpg https://empire-s3-production.bobvila.com/articles/wp-content/uploads/2020/08/best_coffee_mug.jpg https://media.istockphoto.com/photos/cup-of-coffee-picture-id517151571?k=6&m=517151571&s=612x612&w=0&h=pm2doj5opQSCG7vGpddVPQopuhcHlpoY2rahSDsQpPg="
         },
         new ItemDto
         {
             Name = "Black coffee",
             Price = 20,
+            Description = _itemDes,
             ImageUrl =
-                "https://empire-s3-production.bobvila.com/articles/wp-content/uploads/2020/08/best_coffee_mug.jpg"
+                "https://empire-s3-production.bobvila.com/articles/wp-content/uploads/2020/08/best_coffee_mug.jpg https://trircoffee.com/images/homebottom/4.jpg"
         },
         new ItemDto
         {
-            Name = "Black coffee",
+            Name = "Café con leche",
             Price = 20,
+            Description = _itemDes,
             ImageUrl =
-                "https://empire-s3-production.bobvila.com/articles/wp-content/uploads/2020/08/best_coffee_mug.jpg"
+                "https://trircoffee.com/images/homebottom/4.jpg https://wgntv.com/wp-content/uploads/sites/5/2016/09/thinkstockphotos-521696656-e1475156855762.jpg?w=900"
         },
         new ItemDto
         {
-            Name = "Black coffee",
+            Name = "Flat White",
             Price = 20,
+            Description = _itemDes,
             ImageUrl =
-                "https://empire-s3-production.bobvila.com/articles/wp-content/uploads/2020/08/best_coffee_mug.jpg"
+                "https://wgntv.com/wp-content/uploads/sites/5/2016/09/thinkstockphotos-521696656-e1475156855762.jpg?w=900 https://www.hdwallpaper.nu/wp-content/uploads/2017/03/coffee-7.jpg"
         },
         new ItemDto
         {
-            Name = "Black coffee",
+            Name = "Latte Macchiato",
             Price = 20,
+            Description = _itemDes,
             ImageUrl =
-                "https://empire-s3-production.bobvila.com/articles/wp-content/uploads/2020/08/best_coffee_mug.jpg"
+                "https://www.hdwallpaper.nu/wp-content/uploads/2017/03/coffee-7.jpg https://sundun.com/images/single2.jpg"
         },
         new ItemDto
         {
-            Name = "Black coffee",
+            Name = "Vienna Coffee",
             Price = 20,
+            Description = _itemDes,
             ImageUrl =
-                "https://empire-s3-production.bobvila.com/articles/wp-content/uploads/2020/08/best_coffee_mug.jpg"
+                "https://sundun.com/images/single2.jpg https://johnthebodyman.com/wp-content/uploads/2014/05/Bodyman-coffee-in-cup-1024x1024.jpg https://media.istockphoto.com/photos/cup-of-coffee-picture-id517151571?k=6&m=517151571&s=612x612&w=0&h=pm2doj5opQSCG7vGpddVPQopuhcHlpoY2rahSDsQpPg="
         },
         new ItemDto
         {
-            Name = "Black coffee",
+            Name = "Ristretto",
             Price = 20,
+            Description = _itemDes,
             ImageUrl =
-                "https://empire-s3-production.bobvila.com/articles/wp-content/uploads/2020/08/best_coffee_mug.jpg"
+                "https://johnthebodyman.com/wp-content/uploads/2014/05/Bodyman-coffee-in-cup-1024x1024.jpg https://media.istockphoto.com/photos/cup-of-coffee-picture-id517151571?k=6&m=517151571&s=612x612&w=0&h=pm2doj5opQSCG7vGpddVPQopuhcHlpoY2rahSDsQpPg="
         },
         new ItemDto
         {
-            Name = "Black coffee",
+            Name = "Affogato",
             Price = 20,
+            Description = _itemDes,
             ImageUrl =
-                "https://empire-s3-production.bobvila.com/articles/wp-content/uploads/2020/08/best_coffee_mug.jpg"
-        },
-        new ItemDto
-        {
-            Name = "Black coffee",
-            Price = 20,
-            ImageUrl =
-                "https://empire-s3-production.bobvila.com/articles/wp-content/uploads/2020/08/best_coffee_mug.jpg"
-        },
-        new ItemDto
-        {
-            Name = "Black coffee",
-            Price = 20,
-            ImageUrl =
-                "https://empire-s3-production.bobvila.com/articles/wp-content/uploads/2020/08/best_coffee_mug.jpg"
-        },
-        new ItemDto
-        {
-            Name = "Black coffee",
-            Price = 20,
-            ImageUrl =
-                "https://empire-s3-production.bobvila.com/articles/wp-content/uploads/2020/08/best_coffee_mug.jpg"
+                "https://media.istockphoto.com/photos/cup-of-coffee-picture-id517151571?k=6&m=517151571&s=612x612&w=0&h=pm2doj5opQSCG7vGpddVPQopuhcHlpoY2rahSDsQpPg="
         },
     };
+
+    private static string _itemDes =
+        /*language=html*/"""
+                         This coffee is a <strong>bold and robust</strong> 
+                         blend of beans sourced from the <em>lush and verdant</em> 
+                         hills of Colombia. The aroma is <strong>intense and earthy</strong>, 
+                         with notes of <em>dark chocolate</em> and <em>caramel</em>. 
+                         The flavor is <strong>full-bodied and complex</strong>, with hints of <em>spice</em> and <em>nutmeg</em>. 
+                         The finish is <strong>smooth and lingering</strong>, with a subtle hint of <em>smokiness</em>. 
+                         This coffee is perfect for those who enjoy a strong, flavorful brew that packs a punch.
+                         This coffee is a <strong>bold and robust</strong> 
+                         blend of beans sourced from the <em>lush and verdant</em> 
+                         hills of Colombia. The aroma is <strong>intense and earthy</strong>, 
+                         with notes of <em>dark chocolate</em> and <em>caramel</em>. 
+                         The flavor is <strong>full-bodied and complex</strong>, with hints of <em>spice</em> and <em>nutmeg</em>. 
+                         The finish is <strong>smooth and lingering</strong>, with a subtle hint of <em>smokiness</em>. 
+                         This coffee is perfect for those who enjoy a strong, flavorful brew that packs a punch.
+                         """;
     
     public async Task<IEnumerable<MenuCategory>> LoadCategories()
     {
@@ -129,7 +134,7 @@ public class MenuService : IMenuService
     public async Task<IEnumerable<MenuItem>> LoadItems(MenuCategory category)
     {
         // Call http client and get a respond
-        await Task.Delay(Random.Shared.Next(2000, 5000));
+        await Task.Delay(Random.Shared.Next(1000, 1500));
         var dtos = _cachedItems;
 
         var results = new MenuItem[dtos.Length];
@@ -139,5 +144,11 @@ public class MenuService : IMenuService
         }
 
         return results;
+    }
+
+    public async Task<bool> OrderItem(MenuItem item)
+    {
+        await Task.Delay(3000);
+        return Random.Shared.Next(0, 1000) % 2 == 0;
     }
 }

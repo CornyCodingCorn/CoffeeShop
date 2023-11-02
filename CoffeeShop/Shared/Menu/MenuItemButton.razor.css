@@ -1,27 +1,35 @@
 .menu-item-btn {
     height: fit-content;
-    background: var(--btn-color);
+    background: linear-gradient(-30deg, var(--btn-color) 20%,
+    var(--header-footer-color-2) 100%);
     padding: 15px;
     border-radius: 5px;
-    transition: background-color 0.1s ease-in-out;
+    transition-property: background-color, transform;
+    transition-duration: 0.15s;
+    transition-timing-function: ease-in-out;
 }
 
 .menu-item-name {
     text-align: center;
     font-size: 20px;
-    font-weight: bold;
-    font-family: "RobotoMono Nerd Font", serif;
-    text-transform: uppercase;
+    font-weight: bolder;
+    font-family: "Source Code Pro", serif;
     color: var(--text-color);
     margin-bottom: 10px;
 }
 
 .menu-item-btn:hover {
-    background: var(--btn-hover-color);
+    background: linear-gradient(-30deg, var(--btn-hover-color) 20%,
+    var(--btn-color) 100%);
+    transform: scale(115%);
+    z-index: 3;
 }
 
 .menu-item-btn:active {
-    background: var(--btn-click-color);
+    background: linear-gradient(-30deg, var(--btn-click-color) 20%,
+    var(--btn-hover-color) 100%);
+    transform: scale(120%);
+    z-index: 3;
 }
 
 ::deep .icon-btn {

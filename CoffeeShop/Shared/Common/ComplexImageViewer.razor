@@ -1,0 +1,56 @@
+@inherits ImageViewer
+
+<div class="complex-image-viewer" @attributes="AdditionalAttributes">
+    @{
+        base.BuildRenderTree(__builder);
+    }
+    
+    <div class="image-viewer-btn-container">
+        <IconButton class="icon-btn left modified"
+                    @onclick="_ => UpdateImageIndex(-1)"
+                    ImagePos="IconButton.ImagePosition.Right"
+                    ImageSrc="images/left-arrow.png"/>
+        <IconButton class="icon-btn right modified"
+                    @onclick="_ => UpdateImageIndex(+1)"
+                    ImagePos="IconButton.ImagePosition.Left"
+                    ImageSrc="images/right-arrow.png"/>
+    </div>
+    <div class="image-viewer-index-container">
+        @for (var i = 0u; i < ImageUrls.Length; i++)
+        {
+            var index = i;
+            <div class="image-viewer-index" @onclick="_ => SetImageIndex(index)">
+                <div class="image-viewer-index-outer-ring">
+                    <div class="image-viewer-index-inner-ring @(index == ImageIndex ? "" : "hidden")">
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public EventCallback<uint> ImageIndexChanged { get; set; }
+
+    private async Task UpdateImageIndex(int delta)
+    {
+        var result = (int)ImageIndex;
+        result += delta;
+        result %= ImageUrls.Length;
+        result = result < 0 ? ImageUrls.Length + result : result;
+        
+        ImageIndex = (uint)result;
+        await ImageIndexChanged.InvokeAsync(ImageIndex);
+
+        OnParametersSet();
+    }
+
+    private async Task SetImageIndex(uint value)
+    {
+        ImageIndex = value;
+        await ImageIndexChanged.InvokeAsync(ImageIndex);
+        
+        OnParametersSet();
+    }
+}

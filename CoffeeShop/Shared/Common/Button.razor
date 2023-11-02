@@ -1,6 +1,7 @@
 @implements CoffeeShop.Shared.Interfaces.IRefComponent;
 
-<button class="custom-btn" @ref="Reference"
+<button class="custom-btn" @ref="Reference" 
+        @attributes="AdditionalAttributes"
         @onclick="OnClick">
     @Text
 </button>
@@ -11,7 +12,9 @@
     public string Text { get; set; } = string.Empty;
     [Parameter]
     public EventCallback<MouseEventArgs> OnClickCallback { get; set; }
-    
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
     public ElementReference Reference { get; private set; }
     
     protected void OnClick()

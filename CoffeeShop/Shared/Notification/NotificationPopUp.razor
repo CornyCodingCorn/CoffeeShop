@@ -10,7 +10,7 @@
     </div>
 
     <div class="notification-duration-container @TypeToString(Type)">
-        <div class="notification-duration @(_startDurationAnim ? "start" : "")" style="transition: all @(Duration * 1.25)s linear"></div>
+        <div class="notification-duration" style="animation-duration: @(Duration)s"></div>
     </div>
 </div>
 
@@ -29,8 +29,7 @@
     [Parameter]
     public EventCallback OnExpired { get; set; } = default!;
 
-    private bool _isHidden = true;
-    private bool _startDurationAnim = false;
+    private bool _isHidden = false;
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -39,8 +38,6 @@
         if (!firstRender) return;
         Task.Run(async () =>
         {
-            _isHidden = false;
-            _startDurationAnim = true;
             StateHasChanged();
             
             await Task.Delay((int)(Duration * 1000));

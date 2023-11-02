@@ -1,0 +1,15 @@
+div.image-viewer {
+    display: flex;
+    
+    position: relative;
+    background: var(--header-footer-color-1);
+    overflow: hidden;
+    width: 200px;
+    height: 200px;
+}
+
+.image-viewer img {
+    object-fit: cover;
+    min-height: 100%;
+    min-width: 100%;
+}

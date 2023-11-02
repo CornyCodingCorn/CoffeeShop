@@ -6,7 +6,10 @@
     --toggle-btn-color: #97c7b8;
     --toggle-btn-hover-color: #eec385;
     --toggle-btn-click-color: #ffa884;
-
+    
+    --danger-btn-color: #EF946C;
+    --danger-btn-hover-color: #ce6b59;
+    --danger-btn-click-color: #ea5a55;
 
     --pop-up-info: #70877F;
     --pop-up-warn: #C4A77D;
@@ -14,7 +17,7 @@
     
     --pop-up-info-title: #97c7b8;
     --pop-up-warn-title: #eec385;
-    --pop-up-danger-title: #ffa884;
+    --pop-up-danger-title: #ea5a55;
 
     --brand-height: 70px;
     --header-menu-height: 35px;
@@ -24,6 +27,8 @@
     --text-color: #f1ebe1;
     
     --text-color-2: #2b3434;
+    
+    --dimmed-color: rgba(61, 53, 40, 0.5);
 }
 
 @font-face {

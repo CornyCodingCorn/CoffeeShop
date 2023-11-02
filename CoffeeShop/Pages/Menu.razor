@@ -10,7 +10,16 @@
 @inject NavigationManager NavigationManager
 
 <div class="menu">
-    <div class="menu-part">
+    <ViewBlocker Show="@(_viewingItem != null)" @onpointerdown="CancelOrderItem">
+        @if (_viewingItem != null)
+        {
+            <MenuOrderForm Item="@_viewingItem"
+                           OnCancel="@(()=>_viewingItem=null)"
+                           OnConfirm="@(()=>_viewingItem=null)"
+                           @onpointerdown:stopPropagation="true"/>
+        }
+    </ViewBlocker>
+    <div class="menu-part menu-part-container">
         <MenuLabel Text="Categories"></MenuLabel>
         <div class="menu-categories-container menu-container">
             <MenuToggleGroup @bind-SelectedIndex="@_selectedIndex"
@@ -27,14 +36,16 @@
                 {
                     <div class="menu-items-padding"></div>
                 }
-                
+
                 foreach (var item in _displayingCategory.Items)
                 {
                     <MenuItemButton Price="@item.Price"
+                                    Name="@item.Name"
                                     Currency="$"
-                                    ImageSrc="@item.ImageUrl"
+                                    ImageSrc="@item.ImageUrls.First()"
                                     ImagePos="IconButton.ImagePosition.Top"
-                                    ImageAlt="@($"Item {item.Name} image")"/>
+                                    ImageAlt="@($"Item {item.Name} image")"
+                                    @onclick="_ => OrderItem(item)"/>
                 }
 
                 if (isHaveItem)
@@ -42,12 +53,11 @@
                     <div class="menu-items-padding pad-bottom"></div>
                 }
             }
-            
+
             @if (_displayingCategory == null || _displayingCategory.Items.Count == 0)
             {
                 <div class="menu-loading-div">
-                    <LoadingElement Count="10" Duration="1"></LoadingElement>
-                    <h1>Loading</h1>
+                    <LoadingElement Count="11" Duration="1"></LoadingElement>
                 </div>
             }
         </div>
@@ -62,6 +72,7 @@
     private MenuCategory? _displayingCategory;
     private int _selectedIndex;
 
+    private MenuItem? _viewingItem;
     
     protected override void OnAfterRender(bool firstRender)
     {
@@ -150,5 +161,25 @@
     private static string ConvertNameToPath(string name)
     {
         return name.Replace(' ', '_').ToLower();
+    }
+
+    private void OrderItem(MenuItem item)
+    {
+        _viewingItem = item;
+        StateHasChanged();
+
+        Task.Run(async () =>
+        {
+            await Task.Delay(10000000);
+
+            _viewingItem = null;
+            StateHasChanged();
+        });
+    }
+
+    private void CancelOrderItem()
+    {
+        _viewingItem = null;
+        StateHasChanged();
     }
 }
