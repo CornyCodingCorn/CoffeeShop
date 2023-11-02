@@ -1,0 +1,21 @@
+.view-blocker {
+    display: none;
+    position: absolute;
+    
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    
+    background: var(--dimmed-color);
+    z-index: 69;
+    
+    transition: all 0.2s ease-in-out;
+}
+
+.view-blocker.show {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}

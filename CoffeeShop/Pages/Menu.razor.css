@@ -1,4 +1,6 @@
 .menu {
+    position: relative;
+    
     display: flex;
     flex-direction: row;
     height: calc(100vh - var(--header-menu-height) - var(--brand-height));
@@ -70,14 +72,4 @@
     justify-content: center;
     align-content: center;
     flex-direction: column;
-}
-
-.menu-loading-div h1 {
-    text-align: center;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-family: "Team401", serif;
-    font-size: 18px;
-    margin-top: 50px;
-    color: var(--btn-color)
 }

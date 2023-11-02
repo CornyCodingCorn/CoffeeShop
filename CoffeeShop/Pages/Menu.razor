@@ -10,6 +10,9 @@
 @inject NavigationManager NavigationManager
 
 <div class="menu">
+    <ViewBlocker Show="@_showForm">
+        <MenuOrderForm></MenuOrderForm>
+    </ViewBlocker>
     <div class="menu-part menu-part-container">
         <MenuLabel Text="Categories"></MenuLabel>
         <div class="menu-categories-container menu-container">
@@ -27,14 +30,15 @@
                 {
                     <div class="menu-items-padding"></div>
                 }
-                
+
                 foreach (var item in _displayingCategory.Items)
                 {
                     <MenuItemButton Price="@item.Price"
                                     Currency="$"
                                     ImageSrc="@item.ImageUrl"
                                     ImagePos="IconButton.ImagePosition.Top"
-                                    ImageAlt="@($"Item {item.Name} image")"/>
+                                    ImageAlt="@($"Item {item.Name} image")"
+                                    @onclick="_ => { _showForm = true; Task.Run(async () => { await Task.Delay(200000); _showForm = false; StateHasChanged(); }); }"/>
                 }
 
                 if (isHaveItem)
@@ -42,12 +46,11 @@
                     <div class="menu-items-padding pad-bottom"></div>
                 }
             }
-            
+
             @if (_displayingCategory == null || _displayingCategory.Items.Count == 0)
             {
                 <div class="menu-loading-div">
-                    <LoadingElement Count="10" Duration="1"></LoadingElement>
-                    <h1>Loading</h1>
+                    <LoadingElement Count="11" Duration="1"></LoadingElement>
                 </div>
             }
         </div>
@@ -62,6 +65,7 @@
     private MenuCategory? _displayingCategory;
     private int _selectedIndex;
 
+    private bool _showForm;
     
     protected override void OnAfterRender(bool firstRender)
     {

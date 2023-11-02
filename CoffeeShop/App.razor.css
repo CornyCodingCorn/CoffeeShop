@@ -24,6 +24,8 @@
     --text-color: #f1ebe1;
     
     --text-color-2: #2b3434;
+    
+    --dimmed-color: rgba(61, 53, 40, 0.5);
 }
 
 @font-face {

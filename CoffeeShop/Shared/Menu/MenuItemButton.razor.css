@@ -28,7 +28,7 @@
 .menu-item-btn:active {
     background: linear-gradient(-30deg, var(--btn-click-color) 20%,
     var(--btn-hover-color) 100%);
-    transform: scale(125%);
+    transform: scale(120%);
 }
 
 ::deep .icon-btn {
