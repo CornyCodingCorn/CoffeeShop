@@ -16,10 +16,10 @@
                     ImageSrc="images/right-arrow.png"/>
     </div>
     <div class="image-viewer-index-container">
-        @for (var i = 0; i < ImageUrls.Length; i++)
+        @for (var i = 0u; i < ImageUrls.Length; i++)
         {
             var index = i;
-            <div class="image-viewer-index">
+            <div class="image-viewer-index" @onclick="_ => SetImageIndex(index)">
                 <div class="image-viewer-index-outer-ring">
                     <div class="image-viewer-index-inner-ring @(index == ImageIndex ? "" : "hidden")">
                     </div>
@@ -44,7 +44,13 @@
         await ImageIndexChanged.InvokeAsync(ImageIndex);
 
         OnParametersSet();
-        StateHasChanged();
     }
-    
+
+    private async Task SetImageIndex(uint value)
+    {
+        ImageIndex = value;
+        await ImageIndexChanged.InvokeAsync(ImageIndex);
+        
+        OnParametersSet();
+    }
 }
