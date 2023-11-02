@@ -10,10 +10,13 @@
 @inject NavigationManager NavigationManager
 
 <div class="menu">
-    <ViewBlocker Show="@(_viewingItem != null)" @onclick="CancelOrderItem">
+    <ViewBlocker Show="@(_viewingItem != null)" @onpointerdown="CancelOrderItem">
         @if (_viewingItem != null)
         {
-            <MenuOrderForm Item="@_viewingItem" @onclick:stopPropagation="true"></MenuOrderForm>
+            <MenuOrderForm Item="@_viewingItem"
+                           OnCancel="@(()=>_viewingItem=null)"
+                           OnConfirm="@(()=>_viewingItem=null)"
+                           @onpointerdown:stopPropagation="true"/>
         }
     </ViewBlocker>
     <div class="menu-part menu-part-container">

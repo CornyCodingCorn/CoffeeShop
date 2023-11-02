@@ -2,7 +2,7 @@ div.image-viewer {
     display: flex;
     
     position: relative;
-    background: fuchsia;
+    background: var(--header-footer-color-1);
     overflow: hidden;
     width: 200px;
     height: 200px;

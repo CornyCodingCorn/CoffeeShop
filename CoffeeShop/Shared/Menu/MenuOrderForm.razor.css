@@ -1,15 +1,110 @@
 .menu-order-form {
     background-color: var(--text-color);
     margin-bottom: 170px;
-    width: 600px;
+    width: 800px;
     border-radius: 5px;
-}
-
-.menu-order-info {
+    padding: 40px 60px;
     display: flex;
     flex-direction: row;
 }
 
+.menu-order-description {
+    display: flex;
+    flex-direction: column;
+    
+    flex-grow: 1;
+    font-family: "Source Code Pro", serif;
+    margin-right: 40px;
+}
+
+.menu-order-title {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    color: var(--text-color);
+}
+
+.menu-order-text {
+    overflow: scroll;
+    
+    text-align: justify;
+    text-justify: inter-character;
+    font-family: serif;
+    
+    padding-right: 15px;
+    
+    flex-grow: 1;
+    max-height: 200px;
+}
+
+.menu-order-complete-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    
+    padding-right: 15px;
+    
+    bottom: 0;
+}
+
+.text-div {
+    background: linear-gradient(90deg, var(--header-footer-color-1) 0%, var(--header-footer-color-2) 100%);
+    width: fit-content;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.text-div.title {
+    transform: translateX(-20px) skewX(30deg);
+}
+
+.text-div.price {
+    transform: translateX(-20px) skewX(-30deg);
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+::deep .menu-order-complete-container button.custom-btn {
+    width: 100px;
+    justify-self: center;
+    align-self: center;
+}
+
+::deep .menu-order-complete-container button.danger-btn {
+    background: var(--danger-btn-color);
+}
+
+::deep .menu-order-complete-container button.danger-btn:hover {
+    background: var(--danger-btn-hover-color);
+}
+
+::deep .menu-order-complete-container button.danger-btn:active {
+    background: var(--danger-btn-click-color);
+}
+
+.flex-grow {
+    flex-grow: 1;
+}
+
+.menu-order-price {
+    color: var(--text-color);
+    margin: 8px 0;
+}
+
+.menu-order-image-viewer {
+    border-radius: 10px;
+}
+
 ::deep .menu-order-image-viewer div.image-viewer {
-    width: 250px;
+    width: 300px;
+    height: 350px;
+    border-radius: 10px;
+}
+
+::deep .menu-order-image-viewer div.complex-image-viewer div button.left {
+    border-radius: 10px;
+}
+
+::deep .menu-order-image-viewer div.complex-image-viewer div button.right {
+    border-radius: 10px;
 }

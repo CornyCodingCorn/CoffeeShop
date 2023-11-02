@@ -10,6 +10,18 @@
     height: calc(var(--header-menu-height) + var(--brand-height) +  2px);
     transition: margin-right 0.5s ease-in-out;
     z-index: 100;
+    
+    animation-name: popup-show;
+    animation-duration: 0.5s;
+}
+
+.notification-popup.hidden {
+    margin-right: calc(var(--notification-width) * -1);
+}
+
+@keyframes popup-show {
+    from { margin-right: calc(var(--notification-width) * -1); }
+    to { margin-right: 0; }
 }
 
 .notice-text {
@@ -29,8 +41,6 @@
     padding-left: 30px;
     width: 205px;
     word-break: break-word;
-    text-justify: inter-character;
-    text-align: justify;
     font-size: 14px
 }
 
@@ -78,6 +88,15 @@
     height: 4px;
     background: var(--text-color);
     width: 100%;
+    animation-name: duration-animation;
+    animation-duration: 1s;
+    animation-delay: 0.5s;
+    animation-timing-function: linear;
+}
+
+@keyframes duration-animation {
+    from { width: 100% }
+    to { width: 0 }
 }
 
 .notification-duration.start {
@@ -94,8 +113,4 @@
 
 .notification-popup.danger {
     background: var(--pop-up-danger);
-}
-
-.notification-popup.hidden {
-    margin-right: calc(var(--notification-width) * -1);
 }
