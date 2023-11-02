@@ -1,7 +1,11 @@
-<div class="image-viewer" id="image-viewer-@guid">
+@using CoffeeShop.Services.Interfaces
+@inject IJsHelper JsHelper
+
+<div @ref="_imageViewerRef" class="image-viewer" style="flex-direction: @(IsVertical ? "column" : "row")">
     @for (var i = 0; i < ImageUrls.Length; i++)
     {
-        <img id="image-view-@(i)" src="@ImageUrls[i]" onclick="document.getElementById('image-viewer-@guid').scrollTo({top: 100, behavior: 'smooth'})" alt="Image number @i"/>
+        var index = i;
+        <img @ref="@(_imageRef[index])" src="@ImageUrls[index]" @onclick="_ => ScrollToImage((index + 1) % ImageUrls.Length)" alt="Image number @index"/>
     }
 </div>
 
@@ -12,6 +16,27 @@
     public EventCallback<uint> ImageIndexChanged { get; set; }
     [Parameter]
     public string[] ImageUrls { get; set; } = Array.Empty<string>();
-    
-    private Guid guid = Guid.NewGuid();
+
+    [Parameter]
+    public bool IsVertical { get; set; } = true;
+
+    private ElementReference[] _imageRef = Array.Empty<ElementReference>();
+    private ElementReference _imageViewerRef;
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        _imageRef = new ElementReference[ImageUrls.Length];
+    }
+
+    private void ScrollToImage(int i)
+    {
+        if (IsVertical)
+        {
+            JsHelper.ScrollYToElement(_imageViewerRef, _imageRef[i]);
+            return;
+        }
+        
+        JsHelper.ScrollXToElement(_imageViewerRef, _imageRef[i]);
+    }
 }

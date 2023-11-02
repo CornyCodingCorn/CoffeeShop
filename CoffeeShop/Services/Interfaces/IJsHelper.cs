@@ -19,4 +19,7 @@ public interface IJsHelper
     public Task CapturePointer(ElementReference reference, long id);
     public Task ReleasePointer(ElementReference reference, long id);
     public Task ClearCache();
+
+    public Task ScrollXToElement(ElementReference scrollObj, ElementReference markObj);
+    public Task ScrollYToElement(ElementReference scrollObj, ElementReference markObj);
 }

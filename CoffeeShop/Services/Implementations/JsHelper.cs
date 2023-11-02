@@ -67,6 +67,16 @@ public class JsHelper : IJsHelper
         await JsRuntime.InvokeVoidAsync("clearCache");
     }
 
+    public async Task ScrollXToElement(ElementReference scrollObj, ElementReference markObj)
+    {
+        await HelperModule.Value.Result.InvokeVoidAsync("scrollXToElement", scrollObj, markObj);
+    }
+
+    public async Task ScrollYToElement(ElementReference scrollObj, ElementReference markObj)
+    {
+        await HelperModule.Value.Result.InvokeVoidAsync("scrollYToElement", scrollObj, markObj);
+    }
+
     private async Task RegisterOnScrollEvent()
     {
         var module = await HelperModule.Value;

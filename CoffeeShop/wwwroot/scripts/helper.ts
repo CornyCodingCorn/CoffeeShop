@@ -41,3 +41,17 @@ export function registerOnScrollEvent(obj: DotNetObject, funcName: string) {
         await obj.invokeMethodAsync(funcName, scrollEvent);
     })
 }
+
+// scrollObj need to contains markObj and has position set to relative
+export function scrollXToElement(scrollObj: HTMLElement, markObj: HTMLElement) {
+    scrollObj.scrollTo({
+        left: markObj.offsetLeft,
+        behavior: 'smooth'
+    })
+}
+export function scrollYToElement(scrollObj: HTMLElement, markObj: HTMLElement) {
+    scrollObj.scrollTo({
+        top: markObj.offsetTop,
+        behavior: 'smooth'
+    })
+}
