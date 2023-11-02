@@ -1,7 +1,25 @@
 <div class="menu-order-form">
-    
+    <h1>@CoffeeName</h1>
+    <div class="menu-order-info">
+
+    </div>
+    <div class="menu-order-price">
+
+    </div>
+    <div class="menu-order-buttons">
+
+    </div>
 </div>
 
 @code {
+
+    [Parameter]
+    public string CoffeeName { get; set; } = "Insert name";
+
+    [Parameter]
+    public string[] PictureUrls { get; set; } = Array.Empty<string>();
     
+    [Parameter]
+    public string Description { get; set; }
+
 }

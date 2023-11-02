@@ -34,6 +34,7 @@
                 foreach (var item in _displayingCategory.Items)
                 {
                     <MenuItemButton Price="@item.Price"
+                                    Name="@item.Name"
                                     Currency="$"
                                     ImageSrc="@item.ImageUrl"
                                     ImagePos="IconButton.ImagePosition.Top"

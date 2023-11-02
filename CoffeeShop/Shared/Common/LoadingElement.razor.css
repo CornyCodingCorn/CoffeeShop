@@ -46,8 +46,8 @@
     vertical-align: center;
     font-weight: bold;
     color: var(--text-color);
-    margin-left: 5px;
     font-family: "Team401", serif;
+    text-align: center;
 
     animation-duration: 4s;
     animation-name: flipText;
