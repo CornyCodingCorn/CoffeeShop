@@ -1,12 +1,17 @@
 @using CoffeeShop.Services.Types
-<div class="menu-order-form">
-    <h1>Ordering: @Item.Name</h1>
+@using System.Timers
+@using CoffeeShop.Utilities
+<div class="menu-order-form" @attributes="AdditionalAttributes">
     <div class="menu-order-info">
         <div class="menu-order-description">
-            
+            <h1>Ordering: @Item.Name</h1>
         </div>
         <div class="menu-order-image-viewer">
-            <ImageViewer ImageUrls="@Item.ImageUrls"/>
+            <ComplexImageViewer ImageUrls="@Item.ImageUrls"
+                         @bind-ImageIndex="_imageIndex"
+                         IsVertical="false"
+                         @onpointerenter="_ => _tempDisableAutoShow = true"
+                         @onpointerleave="_ => _tempDisableAutoShow = false"/>
         </div>
     </div>
     <div class="menu-order-price">
@@ -21,5 +26,47 @@
 
     [Parameter]
     public MenuItem Item { get; set; } = default!;
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
+    [Parameter]
+    public bool AutoShowImage { get; set; } = true;
+    [Parameter]
+    public float DelayBetweenImages { get; set; } = 5;
+
+    private System.Timers.Timer? _showNextPicture;
+    private float _currentDelay;
+    private bool _tempDisableAutoShow = false;
+
+    private uint _imageIndex;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        if (!firstRender) return;
+
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (MathFEx.EqualEnough(_currentDelay, DelayBetweenImages)) return;
+        
+        _showNextPicture?.Stop();
+        _showNextPicture?.Dispose();
+            
+        _showNextPicture = new Timer(DelayBetweenImages * 1000);
+        _showNextPicture.Elapsed += (_, _) => ShowNextPicture();
+        _showNextPicture.Start();
+        _currentDelay = DelayBetweenImages;
+    }
+
+    private void ShowNextPicture()
+    {
+        if (!AutoShowImage || _tempDisableAutoShow) return;
+        
+        _imageIndex = (_imageIndex + 1) % (uint)Item.ImageUrls.Length;
+        StateHasChanged();
+    }
 }

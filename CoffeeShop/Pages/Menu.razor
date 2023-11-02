@@ -10,10 +10,10 @@
 @inject NavigationManager NavigationManager
 
 <div class="menu">
-    <ViewBlocker Show="@(_viewingItem != null)">
+    <ViewBlocker Show="@(_viewingItem != null)" @onclick="CancelOrderItem">
         @if (_viewingItem != null)
         {
-            <MenuOrderForm Item="@_viewingItem"></MenuOrderForm>
+            <MenuOrderForm Item="@_viewingItem" @onclick:stopPropagation="true"></MenuOrderForm>
         }
     </ViewBlocker>
     <div class="menu-part menu-part-container">
@@ -42,7 +42,7 @@
                                     ImageSrc="@item.ImageUrls.First()"
                                     ImagePos="IconButton.ImagePosition.Top"
                                     ImageAlt="@($"Item {item.Name} image")"
-                                    @onclick="_ => ShowItem(item)"/>
+                                    @onclick="_ => OrderItem(item)"/>
                 }
 
                 if (isHaveItem)
@@ -160,17 +160,23 @@
         return name.Replace(' ', '_').ToLower();
     }
 
-    private void ShowItem(MenuItem item)
+    private void OrderItem(MenuItem item)
     {
         _viewingItem = item;
         StateHasChanged();
 
         Task.Run(async () =>
         {
-            await Task.Delay(100000);
+            await Task.Delay(10000000);
 
             _viewingItem = null;
             StateHasChanged();
         });
+    }
+
+    private void CancelOrderItem()
+    {
+        _viewingItem = null;
+        StateHasChanged();
     }
 }

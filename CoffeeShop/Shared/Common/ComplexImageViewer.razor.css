@@ -1,0 +1,122 @@
+.complex-image-viewer {
+    position: relative;
+}
+
+.image-viewer-index-container {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    
+    bottom: 0;
+    left: 0;
+    right: 0;
+    
+    height: 40px;
+}
+
+.image-viewer-index {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    
+    width: 50px;
+    height: 100%;
+    
+    background: radial-gradient(circle, black 0%, rgba(0, 0, 0, 0) 30%);
+}
+
+.image-viewer-index:hover {
+    background: radial-gradient(circle, var(--btn-color) 20%, rgba(0, 0, 0, 0) 40%);
+}
+
+.image-viewer-index:active {
+    background: radial-gradient(circle, var(--btn-color) 30%, rgba(0, 0, 0, 0) 50%);
+}
+
+.image-viewer-index-outer-ring {
+    display: flex;
+    justify-content: center;
+    
+    border-radius: 50%;
+    border: solid var(--text-color) 1px;
+    width: 12px;
+    height: 12px;
+    
+    align-self: center;
+}
+
+.image-viewer-index-inner-ring.hidden {
+    opacity: 0;
+}
+
+.image-viewer-index-inner-ring {
+    border-radius: 50%;
+    
+    width: 8px;
+    height: 8px;
+
+    opacity: 1;
+    background: var(--text-color);
+    align-self: center;
+    transition: opacity 0.25s ease-in-out;
+}
+
+.image-viewer-indicator-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.image-viewer-btn-container {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+::deep .icon-btn.modified {
+    height: 100%;
+    width: 50%;
+    border-radius: 0;
+    --icon-size: 17px;
+    
+}
+
+::deep .icon-btn.modified.left img.icon-btn-image {
+    margin-left: -15px;
+}
+
+::deep .icon-btn.modified.right img.icon-btn-image {
+    margin-right: -15px;
+}
+
+::deep .icon-btn.left {
+    background: linear-gradient(90deg, var(--btn-color) 0%, rgba(0, 0, 0, 0) 0%);
+}
+
+::deep .icon-btn.right {
+    background: linear-gradient(-90deg, var(--btn-color) 0%, rgba(0, 0, 0, 0) 0%);
+}
+
+::deep .icon-btn.left:hover {
+    background: linear-gradient(90deg, var(--btn-color) 0%, rgba(0, 0, 0, 0) 30%);
+}
+
+::deep .icon-btn.right:hover {
+    background: linear-gradient(-90deg, var(--btn-color) 0%, rgba(0, 0, 0, 0) 30%);
+}
+
+::deep .icon-btn.left:active {
+    background: linear-gradient(90deg, var(--btn-color) 0%, rgba(0, 0, 0, 0) 50%);
+}
+
+::deep .icon-btn.right:active {
+    background: linear-gradient(-90deg, var(--btn-color) 0%, rgba(0, 0, 0, 0) 50%);
+}

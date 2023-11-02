@@ -4,3 +4,12 @@
     width: 600px;
     border-radius: 5px;
 }
+
+.menu-order-info {
+    display: flex;
+    flex-direction: row;
+}
+
+::deep .menu-order-image-viewer div.image-viewer {
+    width: 250px;
+}
