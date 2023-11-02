@@ -1,0 +1,17 @@
+<div class="image-viewer" id="image-viewer-@guid">
+    @for (var i = 0; i < ImageUrls.Length; i++)
+    {
+        <img id="image-view-@(i)" src="@ImageUrls[i]" onclick="document.getElementById('image-viewer-@guid').scrollTo({top: 100, behavior: 'smooth'})" alt="Image number @i"/>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public uint ImageIndex { get; set; }
+    [Parameter]
+    public EventCallback<uint> ImageIndexChanged { get; set; }
+    [Parameter]
+    public string[] ImageUrls { get; set; } = Array.Empty<string>();
+    
+    private Guid guid = Guid.NewGuid();
+}

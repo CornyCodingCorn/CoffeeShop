@@ -10,8 +10,11 @@
 @inject NavigationManager NavigationManager
 
 <div class="menu">
-    <ViewBlocker Show="@_showForm">
-        <MenuOrderForm></MenuOrderForm>
+    <ViewBlocker Show="@(_viewingItem != null)">
+        @if (_viewingItem != null)
+        {
+            <MenuOrderForm Item="@_viewingItem"></MenuOrderForm>
+        }
     </ViewBlocker>
     <div class="menu-part menu-part-container">
         <MenuLabel Text="Categories"></MenuLabel>
@@ -36,10 +39,10 @@
                     <MenuItemButton Price="@item.Price"
                                     Name="@item.Name"
                                     Currency="$"
-                                    ImageSrc="@item.ImageUrl"
+                                    ImageSrc="@item.ImageUrls.First()"
                                     ImagePos="IconButton.ImagePosition.Top"
                                     ImageAlt="@($"Item {item.Name} image")"
-                                    @onclick="_ => { _showForm = true; Task.Run(async () => { await Task.Delay(200000); _showForm = false; StateHasChanged(); }); }"/>
+                                    @onclick="_ => ShowItem(item)"/>
                 }
 
                 if (isHaveItem)
@@ -66,7 +69,7 @@
     private MenuCategory? _displayingCategory;
     private int _selectedIndex;
 
-    private bool _showForm;
+    private MenuItem? _viewingItem;
     
     protected override void OnAfterRender(bool firstRender)
     {
@@ -155,5 +158,19 @@
     private static string ConvertNameToPath(string name)
     {
         return name.Replace(' ', '_').ToLower();
+    }
+
+    private void ShowItem(MenuItem item)
+    {
+        _viewingItem = item;
+        StateHasChanged();
+
+        Task.Run(async () =>
+        {
+            await Task.Delay(100000);
+
+            _viewingItem = null;
+            StateHasChanged();
+        });
     }
 }

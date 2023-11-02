@@ -1,7 +1,13 @@
+@using CoffeeShop.Services.Types
 <div class="menu-order-form">
-    <h1>@CoffeeName</h1>
+    <h1>Ordering: @Item.Name</h1>
     <div class="menu-order-info">
-
+        <div class="menu-order-description">
+            
+        </div>
+        <div class="menu-order-image-viewer">
+            <ImageViewer ImageUrls="@Item.ImageUrls"/>
+        </div>
     </div>
     <div class="menu-order-price">
 
@@ -14,12 +20,6 @@
 @code {
 
     [Parameter]
-    public string CoffeeName { get; set; } = "Insert name";
-
-    [Parameter]
-    public string[] PictureUrls { get; set; } = Array.Empty<string>();
-    
-    [Parameter]
-    public string Description { get; set; }
+    public MenuItem Item { get; set; } = default!;
 
 }

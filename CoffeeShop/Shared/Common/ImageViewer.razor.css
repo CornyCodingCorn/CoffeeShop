@@ -1,0 +1,13 @@
+div.image-viewer {
+    background: fuchsia;
+    overflow: hidden;
+    width: 100px;
+    height: 100px;
+    flex-direction: row;
+}
+
+.image-viewer img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}

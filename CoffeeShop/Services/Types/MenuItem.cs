@@ -6,11 +6,12 @@ public class MenuItem
 {
     public Guid Id { get; set; }
     public string Name { get; set; }
-    public string ImageUrl { get; set; }
+    public string[] ImageUrls { get; set; }
     public decimal Price { get; set; }
     
     public MenuItem(ItemDto dto)
     {
-        (Id, Name, ImageUrl, Price) = (dto.Id, dto.Name, dto.ImageUrl, dto.Price);
+        // Split of a single string into multiple url
+        (Id, Name, ImageUrls, Price) = (dto.Id, dto.Name, dto.ImageUrl.Split(" "), dto.Price);
     }
 }
