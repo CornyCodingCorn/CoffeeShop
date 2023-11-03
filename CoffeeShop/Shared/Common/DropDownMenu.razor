@@ -22,9 +22,22 @@
     public string CollapsedArrowImg { get; set; } = "images/drop-down-collapsed.png";
     [Parameter]
     public int CutOffTextLength { get; set; } = 30;
-    public bool IsExpanded => _isExpanded;
+    public bool IsExpanded
+    {
+        get => _isExpanded;
+        private set
+        {
+            _isExpanded = value;
+            if (AdditionalAttributes == null) return;
+            AdditionalAttributes["class"] = "toggle-group " + (_isExpanded ? string.Empty : "hidden");
+            if (_isExpanded)
+                _currentTask = TempDisableScrollBar();
+            
+            StateHasChanged();
+        }
+    }
 
-    private bool _isExpanded;
+    private bool _isExpanded = false;
     private readonly string _id = Guid.NewGuid().ToString();
     private Task? _currentTask;
 
@@ -37,17 +50,17 @@
         AdditionalAttributes.Add("class", "toggle-group hidden");
     }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (!firstRender) return;
+        await JsHelper.OnClickOutsideClass(".drop-down-menu", this, nameof(OnClickOutside));
+    }
+
     private void ToggleExpand(PointerEventArgs e)
     {
         if (_currentTask != null || e.Button != 0) return;
-        
-        _isExpanded = !_isExpanded;
-        if (AdditionalAttributes == null) return;
-        AdditionalAttributes["class"] = "toggle-group " + (_isExpanded ? string.Empty : "hidden");
-        if (_isExpanded)
-            _currentTask = TempDisableScrollBar();
-        
-        StateHasChanged();
+        IsExpanded = !IsExpanded;
     }
 
     private async Task TempDisableScrollBar()
@@ -78,6 +91,12 @@
     {
         if (name.Length < CutOffTextLength) return name;
         return name[..CutOffTextLength] + "...";
+    }
+
+    [JSInvokable]
+    public void OnClickOutside()
+    {
+        IsExpanded = false;
     }
 
 }

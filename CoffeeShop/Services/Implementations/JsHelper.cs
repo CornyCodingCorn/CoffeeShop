@@ -77,6 +77,12 @@ public class JsHelper : IJsHelper
         await HelperModule.Value.Result.InvokeVoidAsync("scrollYToElement", scrollObj, markObj);
     }
 
+    public async Task OnClickOutsideClass(string className, object dotnetObject, string callbackFunc)
+    {
+        var module = await HelperModule.Value;
+        await module.InvokeVoidAsync("onClickOutsideClass", className, DotNetObjectReference.Create(dotnetObject), callbackFunc);
+    }
+
     private async Task RegisterOnScrollEvent()
     {
         var module = await HelperModule.Value;
