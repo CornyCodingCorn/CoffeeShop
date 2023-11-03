@@ -7,6 +7,7 @@
         
         <ToggleButton Text="@(FilterString(item.Name))"
                       OnClickCallback=@( _ => OnToggle(item, index) )
+                      title="@item.Name"
                       IsToggled="@IsToggled(index)">
         </ToggleButton>
     }
