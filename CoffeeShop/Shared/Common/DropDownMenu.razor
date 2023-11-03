@@ -1,0 +1,83 @@
+@using CoffeeShop.Services.Interfaces
+@inherits ToggleGroup
+@inject IJsHelper JsHelper
+
+<div class="drop-down-menu">
+    @{
+        base.BuildRenderTree(__builder);
+    }
+    <IconButton class="icon-btn drop-down-btn"
+                ImageSrc="@(_isExpanded ? ExpandedArrowImg : CollapsedArrowImg)"
+                ImageAlt="drop down imgs"
+                ImagePos="IconButton.ImagePosition.Right"
+                Text="@(FilterString(Items[SelectedIndex].Name))"
+                @onpointerdown="ToggleExpand"/>
+</div>
+
+@code {
+
+    [Parameter]
+    public string ExpandedArrowImg { get; set; } = "images/drop-down-expanded.png";
+    [Parameter]
+    public string CollapsedArrowImg { get; set; } = "images/drop-down-collapsed.png";
+    [Parameter]
+    public int CutOffTextLength { get; set; } = 30;
+    public bool IsExpanded => _isExpanded;
+
+    private bool _isExpanded;
+    private readonly string _id = Guid.NewGuid().ToString();
+    private Task? _currentTask;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        AdditionalAttributes ??= new Dictionary<string, object>();
+        AdditionalAttributes.Add("id", _id);
+        
+        AdditionalAttributes.Add("class", "toggle-group hidden");
+    }
+
+    private void ToggleExpand(PointerEventArgs e)
+    {
+        if (_currentTask != null || e.Button != 0) return;
+        
+        _isExpanded = !_isExpanded;
+        if (AdditionalAttributes == null) return;
+        AdditionalAttributes["class"] = "toggle-group " + (_isExpanded ? string.Empty : "hidden");
+        if (_isExpanded)
+            _currentTask = TempDisableScrollBar();
+        
+        StateHasChanged();
+    }
+
+    private async Task TempDisableScrollBar()
+    {
+        const string className = "hide-scrollbar";
+        const string classStr = "class";
+
+        AdditionalAttributes![classStr] += className;
+        StateHasChanged();
+        await Task.Delay(250);
+        
+        var classAttr = AdditionalAttributes[classStr].ToString()!;
+        var checkStr = classAttr[^className.Length..^0];
+
+        if (checkStr != className)
+        {
+            _currentTask = null;
+            return;
+        }
+        
+        AdditionalAttributes[classStr] = classAttr[..^className.Length];
+        StateHasChanged();
+        
+        _currentTask = null;
+    }
+
+    protected override string FilterString(string name)
+    {
+        if (name.Length < CutOffTextLength) return name;
+        return name[..CutOffTextLength] + "...";
+    }
+
+}

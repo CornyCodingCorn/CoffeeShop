@@ -4,6 +4,9 @@
     width: 800px;
     border-radius: 5px;
     padding: 40px 60px;
+}
+
+.menu-order-info {
     display: flex;
     flex-direction: row;
 }
@@ -34,15 +37,14 @@
     padding-right: 15px;
     
     flex-grow: 1;
-    max-height: 200px;
+    height: 280px;
 }
 
 .menu-order-complete-container {
+    padding-top: 20px;
     display: flex;
     flex-direction: row;
     gap: 10px;
-    
-    padding-right: 15px;
     
     bottom: 0;
 }
@@ -62,6 +64,7 @@
     transform: translateX(-20px) skewX(-30deg);
     padding-top: 1px;
     padding-bottom: 1px;
+    font-family: "Source Code Pro", serif;
 }
 
 ::deep .menu-order-complete-container button.custom-btn {

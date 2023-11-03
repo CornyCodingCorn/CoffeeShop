@@ -1,11 +1,11 @@
 
-<div class="toggle-group">
+<div class="toggle-group" @attributes="AdditionalAttributes">
     @for (var i = 0; i < Items.Length; i++)
     {
         var index = i;
         var item = Items[index];
         
-        <ToggleButton Text="@item.Name"
+        <ToggleButton Text="@(FilterString(item.Name))"
                       OnClickCallback=@( _ => OnToggle(item, index) )
                       IsToggled="@IsToggled(index)">
         </ToggleButton>
@@ -17,7 +17,7 @@
     public class Item
     {
         public string Name { get; init; } = string.Empty;
-        public Action<string> Toggled { get; init; } = default!;
+        public Action<string>? Toggled { get; init; }
     }
 
     [Parameter]
@@ -26,6 +26,8 @@
     public int SelectedIndex { get; set; }
     [Parameter]
     public EventCallback<int> SelectedIndexChanged { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
     protected async void OnToggle(Item item, int index)
     {
@@ -33,11 +35,17 @@
         SelectedIndex = index;
         await SelectedIndexChanged.InvokeAsync(SelectedIndex);
         
-        if (isNewValue) item.Toggled(item.Name);
+        if (isNewValue) item.Toggled?.Invoke(item.Name);
     }
 
     protected bool IsToggled(int index)
     {
         return index == SelectedIndex;
     }
+
+    protected virtual string FilterString(string name)
+    {
+        return name;
+    }
+    
 }

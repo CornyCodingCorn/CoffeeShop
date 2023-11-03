@@ -7,27 +7,29 @@
 @inject INotificationService NoticeService
 
 <div class="menu-order-form" @attributes="AdditionalAttributes">
-    <div class="menu-order-description">
-        <div class="text-div title">
-            <h2 class="menu-order-title un-skew">Ordering: @Item.Name</h2>
-        </div>
-        <p class="menu-order-text">@((MarkupString)Item.Description)</p>
-        <div class="menu-order-complete-container">
-            <div class="flex-grow">
-                <div class="text-div price">
-                    <h3 class="menu-order-price skew">Price: @Currency @Item.Price.ToString("#0.00")</h3>
-                </div>
+    <div class="menu-order-info">
+        <div class="menu-order-description">
+            <div class="text-div title">
+                <h2 class="menu-order-title un-skew">Ordering: @Item.Name</h2>
             </div>
-            <Button Text="Confirm" OnClickCallback="@PlaceOrder"></Button>
-            <Button class="custom-btn danger-btn" Text="Cancel" OnClickCallback="@OnCancel"></Button>
+            <p class="menu-order-text">@((MarkupString)Item.Description)</p>
+        </div>
+        <div class="menu-order-image-viewer">
+            <ComplexImageViewer ImageUrls="@Item.ImageUrls"
+                                @bind-ImageIndex="_imageIndex"
+                                IsVertical="false"
+                                @onpointerenter="_ => _tempDisableAutoShow = true"
+                                @onpointerleave="_ => _tempDisableAutoShow = false"/>
         </div>
     </div>
-    <div class="menu-order-image-viewer">
-        <ComplexImageViewer ImageUrls="@Item.ImageUrls"
-                     @bind-ImageIndex="_imageIndex"
-                     IsVertical="false"
-                     @onpointerenter="_ => _tempDisableAutoShow = true"
-                     @onpointerleave="_ => _tempDisableAutoShow = false"/>
+    <div class="menu-order-complete-container">
+        <div class="flex-grow">
+            <div class="text-div price">
+                <h3 class="menu-order-price skew">Price: @Currency @Item.Price.ToString("#0.00")</h3>
+            </div>
+        </div>
+        <Button Text="Confirm" OnClickCallback="@PlaceOrder"></Button>
+        <Button class="custom-btn danger-btn" Text="Cancel" OnClickCallback="@OnCancel"></Button>
     </div>
 </div>
 
