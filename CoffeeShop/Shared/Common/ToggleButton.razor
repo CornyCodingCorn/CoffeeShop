@@ -1,6 +1,7 @@
 @inherits Button
 
 <button class="custom-toggle-btn @GetClass()"
+        @attributes="AdditionalAttributes"
         ref="@Reference"
         @onclick="OnClick">
     <div>

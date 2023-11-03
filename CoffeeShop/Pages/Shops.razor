@@ -1,7 +1,33 @@
 @page "/shops"
 
-<h3>Shops</h3>
+<div class="shops-page">
+    <DropDownMenu CutOffTextLength="15" Items="@_items" />
+</div>
 
 @code {
-    
+
+    private ToggleGroup.Item[] _items = new ToggleGroup.Item[]
+    {
+        new ToggleGroup.Item()
+        {
+            Name = "District 7",
+        },
+        new ToggleGroup.Item()
+        {
+            Name = "District 8",
+        },
+        new ToggleGroup.Item()
+        {
+            Name = "District 9",
+        },
+        new ToggleGroup.Item()
+        {
+            Name = "District 10",
+        },
+        new ToggleGroup.Item()
+        {
+            Name = "DDistrict 11District 11District 11District 11istrict 11",
+        },
+    };
+
 }

@@ -55,3 +55,12 @@ export function scrollYToElement(scrollObj: HTMLElement, markObj: HTMLElement) {
         behavior: 'smooth'
     })
 }
+
+export function onClickOutsideClass(className: string, dotnetObj: DotNetObject, funcName: string) {
+    document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        if (target.closest(className) != null) return;
+        
+        dotnetObj.invokeMethod(funcName);
+    })
+}
