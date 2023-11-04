@@ -2,7 +2,7 @@
 @inherits ToggleGroup
 @inject IJsHelper JsHelper
 
-<div class="drop-down-menu">
+<div class="drop-down-menu @Class">
     @{
         base.BuildRenderTree(__builder);
     }
@@ -23,6 +23,12 @@
     public string CollapsedArrowImg { get; set; } = "images/drop-down-collapsed.png";
     [Parameter]
     public int CutOffTextLength { get; set; } = 30;
+    [Parameter]
+    public bool IsAutoClose { get; set; }
+
+    [Parameter]
+    public string Class { get; set; } = string.Empty;
+    
     public bool IsExpanded
     {
         get => _isExpanded;
@@ -49,6 +55,12 @@
         AdditionalAttributes.Add("id", _id);
         
         AdditionalAttributes.Add("class", "toggle-group hidden");
+    }
+
+    protected override void OnToggle(Item item, int index)
+    {
+        base.OnToggle(item, index);
+        IsExpanded = false;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

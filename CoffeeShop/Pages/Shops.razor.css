@@ -5,3 +5,35 @@
     flex-direction: row;
     min-height: calc(100vh - var(--header-menu-height) - var(--brand-height));
 }
+
+.shops-controllers-div {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 20px;
+    background: var(--text-color);
+    width: 100%;
+    margin: 20px;
+    height: fit-content;
+    border-radius: 10px;
+}
+
+.shops-controllers-div h3 {
+    margin: 0;
+    
+    align-self: center;
+    font-family: "RobotoMono Nerd Font", serif;
+    font-weight: bold;
+}
+
+::deep .shops-controllers-div div.drop-down-menu {
+    margin-right: 20px;
+}
+
+::deep .shops-controllers-div div.district-menu {
+    width: 250px;
+}
+
+::deep .shops-controllers-div div.city-menu {
+    width: 300px;
+}
