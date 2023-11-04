@@ -10,7 +10,7 @@
 
 ::deep .drop-down-btn {
     position: relative;
-    width: 200px;
+    width: 100%;
     height: var(--drop-down-height);
     z-index: 3;
 }

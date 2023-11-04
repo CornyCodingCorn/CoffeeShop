@@ -1,7 +1,12 @@
 @page "/shops"
 
 <div class="shops-page">
-    <DropDownMenu CutOffTextLength="15" Items="@_items" />
+    <div class="shops-controllers-div">
+        <h3>City</h3>
+        <DropDownMenu Class="city-menu" CutOffTextLength="15" Items="@_items"/>
+        <h3>District</h3>
+        <DropDownMenu Class="district-menu" CutOffTextLength="15" Items="@_items"/>
+    </div>
 </div>
 
 @code {

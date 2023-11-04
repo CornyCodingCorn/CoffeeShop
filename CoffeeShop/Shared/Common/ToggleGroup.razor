@@ -30,7 +30,7 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
-    protected async void OnToggle(Item item, int index)
+    protected virtual async void OnToggle(Item item, int index)
     {
         var isNewValue = index != SelectedIndex;
         SelectedIndex = index;
