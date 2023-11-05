@@ -11,11 +11,13 @@
 <div class="shops-page">
     @if (_citiesDict != null)
     {
-        <div class="shops-controllers-div">
+        <div class="shops-controllers-div box-shadow">
             <h3>City</h3>
             <DropDownMenu Class="city-menu" CutOffTextLength="15" Items="@_citiesItems"/>
             <h3>District</h3>
             <DropDownMenu @bind-SelectedIndex="_selectedDistrictIndex" Class="district-menu" CutOffTextLength="15" Items="@GetDistrictItems()"/>
+            <div class="flex-grow"></div>
+            <SearchBar @bind-Input="_searchStr" Suggestions="@(new []{"Test", "test", "testts"})"/>
         </div>
     }
     <div class="shops-container @(_infos.Length == 0 ? "loading" : "")">
@@ -44,6 +46,7 @@
     
     private ShopInfo[] _infos = Array.Empty<ShopInfo>();
     private ToggleItem[] _citiesItems = default!;
+    private string _searchStr = "";
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -107,4 +110,5 @@
 
         return items;
     }
+
 }

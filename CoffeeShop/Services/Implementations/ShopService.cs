@@ -88,6 +88,10 @@ public class ShopService : IShopService
 
     private static void PopulateCities()
     {
+        _cities.Add("Any", new []
+        {
+            "Any"
+        });
         _cities.Add("Ho Chi Minh", new []
         {
             "District 7",
@@ -118,6 +122,11 @@ public class ShopService : IShopService
             "Van Ninh",
         });
     }
+
+    public ShopService()
+    {
+        PopulateCities();
+    }
     
     public async Task<IEnumerable<ShopInfo>> LoadShops()
     {
@@ -146,7 +155,6 @@ public class ShopService : IShopService
     public async Task<Dictionary<string, string[]>> GetCities()
     {
         await Task.Delay(500);
-        PopulateCities();
         return _cities;
     }
 }

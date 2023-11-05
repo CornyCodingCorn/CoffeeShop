@@ -10,3 +10,11 @@
 .un-skew {
     transform: skewX(-30deg);
 }
+
+.box-shadow {
+    box-shadow: 0 0 5px 0 var(--shadow-color);
+}
+
+.flex-grow {
+    flex-grow: 1;
+}
