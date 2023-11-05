@@ -2,8 +2,16 @@
     position: relative;
 
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     min-height: calc(100vh - var(--header-menu-height) - var(--brand-height));
+}
+
+.shops-container {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 80px;
+    
+    gap: 30px;
 }
 
 .shops-controllers-div {
@@ -12,7 +20,6 @@
     gap: 20px;
     padding: 20px;
     background: var(--text-color);
-    width: 100%;
     margin: 20px;
     height: fit-content;
     border-radius: 10px;

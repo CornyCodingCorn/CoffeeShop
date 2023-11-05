@@ -1,5 +1,7 @@
 .complex-image-viewer {
     position: relative;
+    width: fit-content;
+    height: fit-content;
 }
 
 .image-viewer-index-container {

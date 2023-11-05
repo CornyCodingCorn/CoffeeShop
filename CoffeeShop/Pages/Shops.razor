@@ -1,11 +1,24 @@
 @page "/shops"
 
+@using CoffeeShop.Shared.Shop
+@using CoffeeShop.Utilities
+@using CoffeeShop.Services.Types
+@using CoffeeShop.Services.Interfaces
+
+@inject IShopService Service
+
 <div class="shops-page">
     <div class="shops-controllers-div">
         <h3>City</h3>
         <DropDownMenu Class="city-menu" CutOffTextLength="15" Items="@_items"/>
         <h3>District</h3>
         <DropDownMenu Class="district-menu" CutOffTextLength="15" Items="@_items"/>
+    </div>
+    <div class="shops-container">
+        @foreach (var info in _infos)
+        {
+            <ShopDisplay Info="@info"/>
+        }
     </div>
 </div>
 
@@ -34,5 +47,19 @@
             Name = "DDistrict 11District 11District 11District 11istrict 11",
         },
     };
+
+    private ShopInfo[] _infos = Array.Empty<ShopInfo>();
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        if (!firstRender) return;
+
+        Task.Run(async () =>
+        {
+            _infos = (await Service.LoadShops()).ToArray();
+            StateHasChanged();
+        });
+    }
 
 }
