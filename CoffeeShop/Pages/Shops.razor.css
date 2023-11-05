@@ -14,13 +14,19 @@
     gap: 30px;
 }
 
+.shops-container.loading {
+    justify-content: center;
+    align-items: center;
+    padding-top: 30vh;
+}
+
 .shops-controllers-div {
     display: flex;
     flex-direction: row;
     gap: 20px;
     padding: 20px;
     background: var(--text-color);
-    margin: 20px;
+    margin: 40px 20px 0 20px;
     height: fit-content;
     border-radius: 10px;
 }
@@ -43,4 +49,10 @@
 
 ::deep .shops-controllers-div div.city-menu {
     width: 300px;
+}
+
+.load-more-div {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
 }

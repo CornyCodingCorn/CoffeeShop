@@ -83,6 +83,41 @@ public class ShopService : IShopService
 
         return stringBuilder.ToString().TrimEnd();
     }
+
+    private static Dictionary<string, string[]> _cities = new Dictionary<string, string[]>();
+
+    private static void PopulateCities()
+    {
+        _cities.Add("Ho Chi Minh", new []
+        {
+            "District 7",
+            "District 8",
+            "District 9",
+            "District 10",
+            "District 1"
+        });
+        _cities.Add("Ha Noi", new []
+        {
+            "Hoang Kiem",
+            "Tay Ho",
+            "Ba Dinh",
+            "Hai Ba Trung",
+            "Dong Da"
+        });
+        _cities.Add("Da Nang", new []
+        {
+            "Hai Chau",
+            "Son Tra",
+            "Ngu Hanh Son",
+            "Lien Chieu"
+        });
+        _cities.Add("Nha Trang", new []
+        {
+            "Nha Trang City",
+            "Cam Lam",
+            "Van Ninh",
+        });
+    }
     
     public async Task<IEnumerable<ShopInfo>> LoadShops()
     {
@@ -106,5 +141,12 @@ public class ShopService : IShopService
     public Task<IEnumerable<ShopInfo>> LoadShops(string city, string district)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task<Dictionary<string, string[]>> GetCities()
+    {
+        await Task.Delay(500);
+        PopulateCities();
+        return _cities;
     }
 }

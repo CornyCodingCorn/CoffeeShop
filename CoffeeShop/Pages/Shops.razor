@@ -4,51 +4,46 @@
 @using CoffeeShop.Utilities
 @using CoffeeShop.Services.Types
 @using CoffeeShop.Services.Interfaces
+@using ToggleItem = Shared.Common.ToggleGroup.Item
 
 @inject IShopService Service
 
 <div class="shops-page">
-    <div class="shops-controllers-div">
-        <h3>City</h3>
-        <DropDownMenu Class="city-menu" CutOffTextLength="15" Items="@_items"/>
-        <h3>District</h3>
-        <DropDownMenu Class="district-menu" CutOffTextLength="15" Items="@_items"/>
-    </div>
-    <div class="shops-container">
+    @if (_citiesDict != null)
+    {
+        <div class="shops-controllers-div">
+            <h3>City</h3>
+            <DropDownMenu Class="city-menu" CutOffTextLength="15" Items="@_citiesItems"/>
+            <h3>District</h3>
+            <DropDownMenu @bind-SelectedIndex="_selectedDistrictIndex" Class="district-menu" CutOffTextLength="15" Items="@GetDistrictItems()"/>
+        </div>
+    }
+    <div class="shops-container @(_infos.Length == 0 ? "loading" : "")">
+        @if (_infos.Length == 0)
+        {
+            <LoadingElement Count="11" Duration="1"/>
+        }
         @foreach (var info in _infos)
         {
             <ShopDisplay Info="@info"/>
+        }
+        @if (_infos.Length != 0)
+        {
+            <div class="load-more-div">
+                <Button Text="Load more"></Button>
+            </div>
         }
     </div>
 </div>
 
 @code {
 
-    private ToggleGroup.Item[] _items = new ToggleGroup.Item[]
-    {
-        new ToggleGroup.Item()
-        {
-            Name = "District 7",
-        },
-        new ToggleGroup.Item()
-        {
-            Name = "District 8",
-        },
-        new ToggleGroup.Item()
-        {
-            Name = "District 9",
-        },
-        new ToggleGroup.Item()
-        {
-            Name = "District 10",
-        },
-        new ToggleGroup.Item()
-        {
-            Name = "DDistrict 11District 11District 11District 11istrict 11",
-        },
-    };
-
+    private Dictionary<string, string[]>? _citiesDict;
+    private string _selectedCity = string.Empty;
+    private int _selectedDistrictIndex;
+    
     private ShopInfo[] _infos = Array.Empty<ShopInfo>();
+    private ToggleItem[] _citiesItems = default!;
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -60,6 +55,56 @@
             _infos = (await Service.LoadShops()).ToArray();
             StateHasChanged();
         });
+
+        Task.Run(async () =>
+        {
+            _citiesDict = await Service.GetCities();
+            _selectedCity = _citiesDict.First().Key;
+            _selectedDistrictIndex = 0;
+            _citiesItems = GetCityItems();
+            
+            StateHasChanged();
+        });
     }
 
+    private ToggleItem[] GetCityItems()
+    {
+        if (_citiesDict == null) return Array.Empty<ToggleItem>();
+        var keyArr = _citiesDict.Keys.ToArray();
+        
+        var items = new ToggleItem[keyArr.Length];
+        for (var i = 0; i < keyArr.Length; i++)
+        {
+            var index = i;
+            items[index] = new ToggleItem
+            {
+                Name = keyArr[index],
+                Toggled = _ =>
+                {
+                    _selectedCity = keyArr[index];
+                    _selectedDistrictIndex = Math.Min(_citiesDict[_selectedCity].Length - 1, _selectedDistrictIndex);
+                    StateHasChanged();
+                }
+            };
+        }
+
+        return items;
+    }
+
+    private ToggleItem[] GetDistrictItems()
+    {
+        if (_citiesDict == null) return Array.Empty<ToggleItem>();
+        var distArr = _citiesDict[_selectedCity];
+
+        var items = new ToggleItem[distArr.Length];
+        for (var i = 0; i < items.Length; i++)
+        {
+            items[i] = new ToggleItem
+            {
+                Name = distArr[i]
+            };
+        }
+
+        return items;
+    }
 }
