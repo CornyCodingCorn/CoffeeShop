@@ -1,0 +1,43 @@
+@using CoffeeShop.Services.Types
+
+@using Type = Services.Types.ShopInfo.ShopFeatures
+
+<div class="shop-feature">
+    <img class="feature-image" src="@ImagesPath/@GetImageName()" alt="@GetImageName()"/>
+    <h5 class="feature-name">@GetFeatureName()</h5>
+</div>
+
+@code {
+
+    private const string ImagesPath = "images/shop-features";
+
+    [Parameter]
+    public Type Type { get; set; } = Type.ChildSafe;
+
+    private string GetFeatureName()
+    {
+        return Type switch {
+            Type.Internet => "Internet",
+            Type.ChildSafe => "Child safe",
+            Type.InStore => "In store",
+            Type.TakeAway => "Take away",
+            Type.ParkingLots => "Free Parking",
+            
+            _ => "Error"
+            };
+    }
+
+    private string GetImageName()
+    {
+        return Type switch {
+            Type.Internet => "internet",
+            Type.ChildSafe => "child-safe",
+            Type.InStore => "in-store",
+            Type.TakeAway => "take-away",
+            Type.ParkingLots => "free-parking",
+                 
+            _ => "error"
+            } + ".png";
+    }
+
+}

@@ -6,13 +6,16 @@
     position: relative;
     width: max-content;
     height: fit-content;
+    
+    border-radius: 5px;
+    box-shadow: 0 0 5px 0 var(--shadow-color);
 }
 
 ::deep .drop-down-btn {
     position: relative;
     width: 100%;
     height: var(--drop-down-height);
-    z-index: 3;
+    z-index: 70;
 }
 
 ::deep .drop-down-btn .icon-btn-text {
@@ -44,6 +47,8 @@
     overflow: scroll;
     
     transition: all 0.25s ease-in-out;
+    z-index: 69;
+    box-shadow: 0 0 5px 0 var(--shadow-color);
 }
 
 ::deep .toggle-group.hidden {

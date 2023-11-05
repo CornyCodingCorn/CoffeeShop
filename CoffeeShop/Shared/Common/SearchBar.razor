@@ -1,0 +1,79 @@
+@using CoffeeShop.Services.Interfaces
+@inject IJsHelper JsHelper
+
+<div class="search-bar @Class">
+    <input class="search-input"
+           value="@Input"
+           type="text"
+           id="@(Id != string.Empty ? Id : "")"
+           @oninput="HandleOnInput"
+           @onfocusin="@(_ => _hideSuggestion=false)"
+           />
+    <button class="search-btn" onclick="@OnClick">
+        <img class="search-icon" src="@IconUrl" alt="search image"/>
+    </button>
+    @if (Suggestions.Length > 0)
+    {
+        <div class="search-suggestions @(_hideSuggestion ? "hide" : "")">
+            @foreach (var suggestion in Suggestions)
+            {
+                <Button Text="@suggestion" OnClickCallback="@(_ => HandleClickSuggestion(suggestion))"></Button>
+            }
+        </div>
+    }
+</div>
+
+@code {
+
+    [Parameter]
+    public string Id { get; set; } = string.Empty;
+    [Parameter]
+    public string Class { get; set; } = string.Empty;
+    [Parameter]
+    public string Input { get; set; } = "Input";
+    [Parameter]
+    public string IconUrl { get; set; } = "images/search.png";
+    [Parameter]
+    public string[] Suggestions { get; set; } = Array.Empty<string>();
+    [Parameter]
+    public EventCallback<string> InputChanged { get; set; }
+    [Parameter]
+    public EventCallback<MouseEventArgs>? OnClick { get; set; }
+
+    private bool _hideSuggestion = true;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (!firstRender) return;
+
+        await JsHelper.OnClickOutsideClass(".search-bar", this, nameof(HandleOnClickOutside));
+    }
+
+    private void HandleOnInput(ChangeEventArgs eventArgs)
+    {
+        Input = eventArgs.Value?.ToString() ?? string.Empty;
+        InputChanged.InvokeAsync(Input);
+
+        if (Input != string.Empty)
+            _hideSuggestion = false;
+        
+        StateHasChanged();
+    }
+
+    private void HandleClickSuggestion(string suggestion)
+    {
+        Input = suggestion;
+        InputChanged.InvokeAsync(Input);
+
+        _hideSuggestion = true;
+        StateHasChanged();
+    }
+
+    [JSInvokable]
+    public void HandleOnClickOutside()
+    {
+        _hideSuggestion = true;
+        StateHasChanged();
+    }
+}

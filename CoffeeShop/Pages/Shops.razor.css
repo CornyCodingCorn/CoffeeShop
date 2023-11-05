@@ -2,8 +2,22 @@
     position: relative;
 
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     min-height: calc(100vh - var(--header-menu-height) - var(--brand-height));
+}
+
+.shops-container {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 80px;
+    
+    gap: 30px;
+}
+
+.shops-container.loading {
+    justify-content: center;
+    align-items: center;
+    padding-top: 30vh;
 }
 
 .shops-controllers-div {
@@ -12,8 +26,7 @@
     gap: 20px;
     padding: 20px;
     background: var(--text-color);
-    width: 100%;
-    margin: 20px;
+    margin: 40px 20px 0 20px;
     height: fit-content;
     border-radius: 10px;
 }
@@ -36,4 +49,10 @@
 
 ::deep .shops-controllers-div div.city-menu {
     width: 300px;
+}
+
+.load-more-div {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
 }

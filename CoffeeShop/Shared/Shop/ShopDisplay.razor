@@ -1,0 +1,43 @@
+@using CoffeeShop.Services.Types
+@using CoffeeShop.Utilities
+
+<div class="shop-display box-shadow">
+    <ComplexImageViewer ImageUrls="@Info.ImageUrls" IsVertical="false"/>
+    <div class="shop-info">
+        <div class="shop-name">
+            <h1>@Info.Name</h1>
+        </div>
+        <h3 class="shop-address-label">Address:</h3>
+        <h4 class="shop-address">@Info.Address.ToString()</h4>
+        <h3>Open: <span class="shop-status @(IsOpening() ? "opening" : "closed")"><em>@ToStringOpeningHour()</em> (@ToStringIsOpening())</span></h3>
+        <div class="features-div">
+            @foreach (var feature in Enum.GetValues(typeof(ShopInfo.ShopFeatures)).Cast<ShopInfo.ShopFeatures>())
+            {
+                if ((feature & Info.Features) == 0) continue;
+                <ShopFeature Type="@feature"/>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public ShopInfo Info { get; set; } = default!;
+
+    private string ToStringOpeningHour()
+    {
+        return $"{Info.OpenHour.Hour:#00}:{Info.OpenHour.Minute:#00} ~ {Info.ClosingHour.Hour:#00}:{Info.ClosingHour.Minute:#00}";
+    }
+
+    private string ToStringIsOpening()
+    {
+        return IsOpening() ? "Opening" : "Closed";
+    }
+
+    private bool IsOpening()
+    {
+        var now = Time.Now;
+        return !(now < Info.OpenHour || now > Info.ClosingHour);
+    }
+}

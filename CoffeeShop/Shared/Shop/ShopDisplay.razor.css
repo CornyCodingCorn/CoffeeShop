@@ -1,0 +1,68 @@
+.shop-display {
+    display: flex;
+    flex-direction: row;
+    
+    min-height: 300px;
+    background: var(--text-color);
+    border-radius: 10px;
+}
+
+.shop-info {
+    padding-left: 40px;
+}
+
+.features-div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 20px;
+    
+    width: 100%;
+}
+
+.shop-name h1 {
+    margin-top: 20px;
+    margin-left: 20px;
+    text-transform: uppercase;
+    font-family: "Source Code Pro", serif;
+    color: var(--text-color);
+    
+    transform: skewX(-30deg);
+}
+
+.shop-name {
+    transform: translateX(-20px) skewX(30deg);
+    background: var(--btn-color)
+}
+
+.shop-status.opening {
+    color: var(--btn-color);
+}
+
+.shop-status.closed {
+    color: var(--danger-btn-color);
+}
+
+h4 {
+    font-weight: normal;
+}
+
+::deep div.complex-image-viewer {
+    align-self: center;
+    margin-left: 30px;
+}
+
+::deep div.image-viewer {
+    width: 400px;
+    height: 240px;
+    border-radius: 10px;
+}
+
+::deep div.complex-image-viewer div button.right {
+    border-radius: 10px;
+}
+
+::deep div.complex-image-viewer div button.left {
+    border-radius: 10px;
+}

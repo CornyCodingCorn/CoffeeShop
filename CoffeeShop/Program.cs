@@ -14,6 +14,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 builder.Services.AddScoped<INewsService, NewsService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IJsHelper, JsHelper>();
+builder.Services.AddScoped<IShopService, ShopService>();
 
 builder.Services.AddScoped<IMenuService, MenuService>();
 

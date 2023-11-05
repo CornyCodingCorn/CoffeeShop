@@ -22,6 +22,6 @@ public interface IJsHelper
 
     public Task ScrollXToElement(ElementReference scrollObj, ElementReference markObj);
     public Task ScrollYToElement(ElementReference scrollObj, ElementReference markObj);
-    // Remember to add . for class and # for id
+    /// Remember to add . for class and # for id
     public Task OnClickOutsideClass(string className, object dotnetObject, string callbackFunc);
 }
