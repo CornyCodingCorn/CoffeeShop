@@ -3,6 +3,7 @@
 <div class="number-input @Class">
     <button class="input-btn-left" title="decrease button" @onclick="DecreaseValue">-</button>
     <input type="number"
+           id="@Id"
            @oninput="HandleOnInput"
            value="@Value"
            step="@Step"/>

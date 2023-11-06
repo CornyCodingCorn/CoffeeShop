@@ -1,0 +1,18 @@
+@inherits CustomComponentBase
+
+<button class="custom-btn @Class" id="@Id" @onclick="@OnClick" @attributes="AdditionalAttributes">
+    @ChildContent
+</button>
+
+@code {
+    // A More refined version of button :))
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    public void HandleClick()
+    {
+        
+    }
+}

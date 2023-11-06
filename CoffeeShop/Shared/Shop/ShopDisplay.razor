@@ -37,7 +37,7 @@
 
     private bool IsOpening()
     {
-        var now = Time.Now;
+        var now = TimeOnly.FromDateTime(DateTime.Now);
         return !(now < Info.OpenHour || now > Info.ClosingHour);
     }
 }

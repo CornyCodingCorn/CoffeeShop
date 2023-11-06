@@ -25,6 +25,8 @@
     --header-footer-color-1: rgba(112, 135, 127, 0.85);
     --header-footer-color-2: rgba(114, 95, 67, 0.85);
     --text-color: #f1ebe1;
+    --text-hover-color: #e1dad0;
+    --text-clicked-color: #d7cec6;
     
     --text-color-2: #2b3434;
     
