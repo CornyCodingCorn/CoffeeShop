@@ -64,3 +64,15 @@ export function onClickOutsideClass(className: string, dotnetObj: DotNetObject, 
         dotnetObj.invokeMethod(funcName);
     })
 }
+
+
+function validDigits(n: string){
+    return n.replace(/[^0-9]+/g, '1');
+}
+
+export function forceDigitOnlyInput(ref: HTMLInputElement) {
+    ref.addEventListener('keyup', function(){
+        let field = ref.value;
+        ref.value = validDigits(field);
+    });
+}

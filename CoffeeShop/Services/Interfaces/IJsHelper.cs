@@ -24,4 +24,6 @@ public interface IJsHelper
     public Task ScrollYToElement(ElementReference scrollObj, ElementReference markObj);
     /// Remember to add . for class and # for id
     public Task OnClickOutsideClass(string className, object dotnetObject, string callbackFunc);
+
+    public Task ForceDigitOnlyInput(ElementReference inputElement);
 }

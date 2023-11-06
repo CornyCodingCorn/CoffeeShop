@@ -14,6 +14,7 @@
         @if (_viewingItem != null)
         {
             <MenuOrderForm Item="@_viewingItem"
+                           ItemCount="1"
                            OnCancel="@(()=>_viewingItem=null)"
                            OnConfirm="@(()=>_viewingItem=null)"
                            @onpointerdown:stopPropagation="true"/>

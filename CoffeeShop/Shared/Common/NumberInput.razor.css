@@ -1,0 +1,69 @@
+.number-input {
+    --input-color: var(--btn-color);
+    --input-border-radius: 5px;
+    --input-height: 40px;
+    --input-btn-width: 30px;
+    --input-width: 120px;
+    
+    width: 100px;
+    display: flex;
+    flex-direction: row;
+}
+.number-input:hover {
+    --input-color: var(--btn-hover-color);
+}
+
+.number-input button {
+    appearance: none;
+    background: var(--input-color);
+    border: none;
+    height: var(--input-height);
+    width: var(--input-btn-width);
+    
+    font-size: 20px;
+    font-family: "Source Code Pro", serif;
+    font-weight: bold;
+    text-align: center;
+    color: var(--text-color)
+}
+.number-input button:active {
+    background: var(--btn-click-color);
+}
+.number-input button.input-btn-right {
+    border-top-right-radius: var(--input-border-radius);
+    border-bottom-right-radius: var(--input-border-radius);
+}
+.number-input button.input-btn-left {
+    border-top-left-radius: var(--input-border-radius);
+    border-bottom-left-radius: var(--input-border-radius);
+}
+
+.number-input input[type='number'] {
+    border-top: 1px solid var(--input-color);
+    border-bottom: 1px solid var(--input-color);
+    border-right: 3px solid var(--input-color);
+    border-left: 3px solid var(--input-color);
+    
+    width: calc(var(--input-width) - var(--input-btn-width) * 2);
+    text-align: center;
+    font-size: 16px;
+    font-family: "RobotoMono Nerd Font", serif;
+}
+.number-input input[type='number']:hover {
+    border-top: 2px solid var(--input-color);
+    border-bottom: 2px solid var(--input-color);
+}
+.number-input input[type='number']:focus {
+    outline: none;
+    border-top: 3px solid var(--input-color);
+    border-bottom: 3px solid var(--input-color);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+}

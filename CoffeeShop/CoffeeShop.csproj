@@ -20,4 +20,8 @@
       <Folder Include="wwwroot\images\shop-features\" />
     </ItemGroup>
     
+    <ItemGroup>
+      <Content Remove="wwwroot\images\7fd2a693d456df49cf41d14e62403775e30d5e8e9a1885fea55d0fe6b9e733d2.jpg" />
+    </ItemGroup>
+    
 </Project>

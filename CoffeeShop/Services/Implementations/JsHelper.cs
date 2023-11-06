@@ -83,6 +83,12 @@ public class JsHelper : IJsHelper
         await module.InvokeVoidAsync("onClickOutsideClass", className, DotNetObjectReference.Create(dotnetObject), callbackFunc);
     }
 
+    public async Task ForceDigitOnlyInput(ElementReference inputElement)
+    {
+        var module = await HelperModule.Value;
+        await module.InvokeVoidAsync("forceDigitOnlyInput", inputElement);
+    }
+
     private async Task RegisterOnScrollEvent()
     {
         var module = await HelperModule.Value;

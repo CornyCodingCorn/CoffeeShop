@@ -111,3 +111,13 @@
 ::deep .menu-order-image-viewer div.complex-image-viewer div button.right {
     border-radius: 10px;
 }
+
+.flex-grow {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+::deep div.number-input {
+    --input-height: 45px;
+}
