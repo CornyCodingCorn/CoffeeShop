@@ -17,7 +17,7 @@
             <h3>District</h3>
             <DropDownMenu @bind-SelectedIndex="_selectedDistrictIndex" Class="district-menu" CutOffTextLength="15" Items="@GetDistrictItems()"/>
             <div class="flex-grow"></div>
-            <SearchBar @bind-Input="_searchStr" Suggestions="@(new []{"Test", "test", "testts"})"/>
+            <SearchBar @bind-Value="_searchStr" Suggestions="@(new []{"Test", "test", "testts"})"/>
         </div>
     }
     <div class="shops-container @(_infos.Length == 0 ? "loading" : "")">

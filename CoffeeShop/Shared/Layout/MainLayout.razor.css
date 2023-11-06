@@ -12,10 +12,11 @@ div.content {
 
 div.content-background {
     position: relative;
-    background-image: url(images/mainbg.jpg);
     background-repeat: repeat-y;
     background-position: center;
     background-size: cover;
+    
+    transition: background-image 0.2s ease-in-out;
 }
 
 .scroll-btn-div {

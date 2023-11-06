@@ -1,9 +1,12 @@
 @using CoffeeShop.Services.Interfaces
+
+@inherits InputBase<string>
+
 @inject IJsHelper JsHelper
 
 <div class="search-bar @Class">
     <input class="search-input"
-           value="@Input"
+           value="@Value"
            type="text"
            id="@(Id != string.Empty ? Id : "")"
            @oninput="HandleOnInput"
@@ -26,17 +29,9 @@
 @code {
 
     [Parameter]
-    public string Id { get; set; } = string.Empty;
-    [Parameter]
-    public string Class { get; set; } = string.Empty;
-    [Parameter]
-    public string Input { get; set; } = "Input";
-    [Parameter]
     public string IconUrl { get; set; } = "images/search.png";
     [Parameter]
     public string[] Suggestions { get; set; } = Array.Empty<string>();
-    [Parameter]
-    public EventCallback<string> InputChanged { get; set; }
     [Parameter]
     public EventCallback<MouseEventArgs>? OnClick { get; set; }
 
@@ -50,21 +45,22 @@
         await JsHelper.OnClickOutsideClass(".search-bar", this, nameof(HandleOnClickOutside));
     }
 
-    private void HandleOnInput(ChangeEventArgs eventArgs)
+    protected override void HandleOnInput(ChangeEventArgs eventArgs)
     {
-        Input = eventArgs.Value?.ToString() ?? string.Empty;
-        InputChanged.InvokeAsync(Input);
+        Value = eventArgs.Value?.ToString() ?? string.Empty;
+        ValueChanged?.InvokeAsync(Value);
 
-        if (Input != string.Empty)
+        if (Value != string.Empty)
             _hideSuggestion = false;
+
         
         StateHasChanged();
     }
 
     private void HandleClickSuggestion(string suggestion)
     {
-        Input = suggestion;
-        InputChanged.InvokeAsync(Input);
+        Value = suggestion;
+        ValueChanged?.InvokeAsync(Value);
 
         _hideSuggestion = true;
         StateHasChanged();

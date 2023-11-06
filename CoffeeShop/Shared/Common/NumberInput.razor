@@ -1,0 +1,59 @@
+@inherits InputBase<int>
+
+<div class="number-input @Class">
+    <button class="input-btn-left" title="decrease button" @onclick="DecreaseValue">-</button>
+    <input type="number"
+           @oninput="HandleOnInput"
+           value="@Value"
+           step="@Step"/>
+    <button class="input-btn-right" title="increase button" @onclick="IncreaseValue">+</button>
+</div>
+@code {
+    
+    [Parameter]
+    public int Min { get; set; } = -10000;
+    [Parameter]
+    public int Max { get; set; } = 10000;
+    [Parameter]
+    public int Step { get; set; } = 1;
+
+    public NumberInput()
+    {
+        Value = 1;
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        TrimValue();
+    }
+
+    protected override void HandleOnInput(ChangeEventArgs e)
+    {
+        var isDigit = int.TryParse(e.Value?.ToString(), out var result);
+        Value = result;
+        
+        TrimValue();
+        ValueChanged?.InvokeAsync(Value);
+    }
+
+    private void DecreaseValue()
+    {
+        Value -= Step;
+        TrimValue();
+        ValueChanged?.InvokeAsync(Value);
+    }
+
+    private void IncreaseValue()
+    {
+        Value += Step;
+        TrimValue();
+        ValueChanged?.InvokeAsync(Value);
+    }
+
+    private void TrimValue()
+    {
+        Value = Math.Clamp(Value, Min, Max);
+    }
+
+}

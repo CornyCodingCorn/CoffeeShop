@@ -1,0 +1,70 @@
+.history {
+    padding: 30px 120px 60px 120px;
+}
+
+.history img {
+    object-fit: cover;
+    border: 15px solid white;
+    border-radius: 10px;
+}
+
+.image-div {
+    display: flex;
+    margin-top: 30px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-div img.poster-image {
+    width: 150px;
+    height: 250px;
+    margin: 0 20px;
+}
+.image-div img.poster-image.first {
+    rotate: 2deg;
+}
+.image-div img.poster-image.second {
+    rotate: -2deg;
+    z-index: 1;
+}
+.image-div img.poster-image.third {
+    rotate: 2deg;
+}
+
+.image-div img.origin-image {
+    rotate: -2deg;
+}
+.image-div img.origin-image {
+    width: 600px;
+    height: 300px;
+}
+
+.image-div img.rise-image {
+    width: 250px;
+    height: 350px;
+    margin: 0 20px;
+    
+    transform: translateY(0px);
+}
+
+.image-div img.rise-image.second {
+    transform: translateY(-20px);
+}
+.image-div img.rise-image.first {
+    rotate: -4deg;
+}
+.image-div img.rise-image.third {
+    rotate: 4deg;
+}
+
+.image-div img.expansion-image {
+    width: 500px;
+    height: 300px;
+}
+
+.background {
+    background: var(--text-color);
+    border-radius: 10px;
+    padding: 40px 120px;
+}
