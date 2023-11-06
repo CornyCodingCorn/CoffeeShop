@@ -7,6 +7,8 @@
         <div class="brand">
             <img class="brand-icon" src="images/flag-128.png" alt="flag image"/>
             <h3 class="brand-text">@BrandName</h3>
+            <div class="flex-grow"></div>
+            <AccountComponent></AccountComponent>
         </div>
         <IconToggleGroup @bind-SelectedIndex="_selectedIndex" Items="@GenerateItems()"></IconToggleGroup>
     </div>
@@ -80,12 +82,19 @@
         var currentPath = NavigationManager.ToBaseRelativePath(NavigationManager.Uri).Split("/").First();
         if (selectedPath == currentPath) return;
 
+        var foundPath = false;
         for (var i = 0; i < PagesInfo.Length; i++)
         {
             if (PagesInfo[i].Path != currentPath) continue;
 
+            foundPath = true;
             _selectedIndex = i;
             StateHasChanged();
+            break;
         }
+
+        if (foundPath) return;
+        _selectedIndex = -1;
+        StateHasChanged();
     }
 }

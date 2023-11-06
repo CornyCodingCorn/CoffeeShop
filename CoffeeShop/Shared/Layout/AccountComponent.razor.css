@@ -1,0 +1,78 @@
+.account-component {
+    --profile-size: 35px;
+    --profile-color: var(--text-color);
+    --profile-text-color: var(--btn-color);
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.account-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.account-div:hover {
+    --profile-color: var(--text-hover-color);
+    --profile-text-color: var(--toggle-btn-color);
+}
+.account-div:active {
+    --profile-color: var(--text-clicked-color);
+    --profile-text-color: var(--toggle-btn-color);
+}
+
+::deep .account-btn {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    height: calc(var(--profile-size) - 10px);
+    width: calc(var(--profile-size));
+    margin-right: 5px;
+    border-radius: 0;
+    padding: 0;
+    transform: translateX(32px) skewX(30deg);
+    
+    background: var(--text-color);
+}
+::deep .account-btn:hover {
+    background: var(--text-hover-color);
+}
+::deep .account-btn:active {
+    background: var(--text-clicked-color);
+}
+
+.account-btn-image {
+    width: 15px;
+    height: 15px;
+}
+
+.username-div {
+    background: var(--profile-color);
+    transform: translateX(32px) skewX(30deg);
+}
+
+.account-component img.profile-image {
+    width: var(--profile-size);
+    height: var(--profile-size);
+    border-radius: 50%;
+    border: solid 4px var(--profile-color);
+    object-fit: cover;
+    margin-right: 20px;
+    z-index: 1;
+}
+
+.account-component h3 {
+    color: var(--profile-text-color);
+    font-weight: bold;
+    font-family: "Source Code Pro", serif;
+    font-size: 20px;
+    padding: 0 60px 0 20px;
+    line-height: calc(var(--profile-size) + 8px);
+    margin-top: 0;
+    margin-bottom: 0;
+    user-select: none;
+    
+    height: calc(var(--profile-size) + 8px);
+}

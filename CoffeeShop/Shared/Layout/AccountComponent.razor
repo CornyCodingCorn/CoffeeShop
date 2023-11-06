@@ -1,0 +1,29 @@
+<div class="account-component @Class">
+    <CustomButton OnClick="@ViewCart" Class="account-btn skew">
+        <img class="account-btn-image un-skew" src="images/bell.png" alt="notices"/>
+    </CustomButton>
+    <CustomButton OnClick="@ViewNotices" Class="account-btn skew">
+        <img class="account-btn-image un-skew" src="images/cart.png" alt="cart"/>
+    </CustomButton>
+    <div class="account-div">
+        <div class="username-div skew ">
+            <h3 class="un-skew">User name</h3>
+        </div>
+        <img class="box-shadow profile-image" title="user's profile" src="https://www.dia33.com/wp-content/uploads/2016/10/Depositphotos_22618067_original.jpg" alt=""/>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Class { get; set; } = string.Empty;
+
+    private void ViewCart()
+    {
+        Console.WriteLine("Viewing cart");
+    }
+
+    private void ViewNotices()
+    {
+        Console.WriteLine("Viewing notices");
+    }
+}

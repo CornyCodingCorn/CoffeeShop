@@ -29,8 +29,8 @@ public class ShopService : IShopService
                 Street = "Elm Street",
                 Number = "123/2"
             },
-            OpenHour = 0x7000F0000,
-            ClosingHour = 0x1700000000,
+            OpenHour = new TimeOnly(7, 15, 0).Ticks,
+            ClosingHour = new TimeOnly(23, 15, 0).Ticks,
             Features = (short)(Features.Internet | Features.ChildSafe | Features.TakeAway),
             ImageUrls = GetRandomImageUrl()
         },
@@ -45,8 +45,8 @@ public class ShopService : IShopService
                 Street = "Elm Street",
                 Number = "123/2"
             },
-            OpenHour = 0x7000F0000,
-            ClosingHour = 0x1700000000,
+            OpenHour = new TimeOnly(7, 15, 0).Ticks,
+            ClosingHour = new TimeOnly(23, 15, 0).Ticks,
             Features = (short)(Features.Internet | Features.ParkingLots | Features.InStore),
             ImageUrls = GetRandomImageUrl()
         },
@@ -61,8 +61,8 @@ public class ShopService : IShopService
                 Street = "Erk Street",
                 Number = "321/1"
             },
-            OpenHour = 0x7000F0000,
-            ClosingHour = 0x1700000000,
+            OpenHour = new TimeOnly(7, 15, 0).Ticks,
+            ClosingHour = new TimeOnly(23, 15, 0).Ticks,
             Features = (short)(Features.Internet | Features.ChildSafe | Features.TakeAway | Features.ParkingLots),
             ImageUrls = GetRandomImageUrl()
         },

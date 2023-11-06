@@ -18,8 +18,8 @@ public class ShopInfo
      public string Name { get; set; }
      public string[] ImageUrls { get; set; }
      public Address Address { get; set; }
-     public Time OpenHour { get; set; }
-     public Time ClosingHour { get; set; }
+     public TimeOnly OpenHour { get; set; }
+     public TimeOnly ClosingHour { get; set; }
      public ShopFeatures Features { get; set; }
 
      public ShopInfo(ShopDto dto)
@@ -27,8 +27,8 @@ public class ShopInfo
           Name = dto.Name;
           ImageUrls = dto.ImageUrls.Split(' ');
           Address = new Address(dto.Address);
-          OpenHour = new Time(dto.OpenHour);
-          ClosingHour = new Time(dto.ClosingHour);
+          OpenHour = new TimeOnly(dto.OpenHour);
+          ClosingHour = new TimeOnly(dto.ClosingHour);
           Features = (ShopFeatures)dto.Features;
      }
 }

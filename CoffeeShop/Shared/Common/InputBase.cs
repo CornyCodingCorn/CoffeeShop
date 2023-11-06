@@ -7,7 +7,7 @@ public abstract class InputBase<T> : ComponentBase
     [Parameter] public T Value { get; set; } = default!;
     [Parameter] public EventCallback<T>? ValueChanged { get; set; }
     [Parameter] public string Class { get; set; } = default!;
-    [Parameter] public string Id { get; set; } = default!;
+    [Parameter] public string? Id { get; set; }
 
     protected abstract void HandleOnInput(ChangeEventArgs e);
 }

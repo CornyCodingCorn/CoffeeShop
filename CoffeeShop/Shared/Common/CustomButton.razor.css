@@ -1,0 +1,17 @@
+.custom-btn {
+    height: 45px;
+    background-color: var(--btn-color, white);
+    color: var(--text-color);
+    border-radius: 5px;
+    padding: 10px;
+    font-weight: bold;
+    border: none;
+}
+
+.custom-btn:hover {
+    background-color: var(--btn-hover-color, black);
+}
+
+.custom-btn:active {
+    background-color: var(--btn-click-color, red);
+}

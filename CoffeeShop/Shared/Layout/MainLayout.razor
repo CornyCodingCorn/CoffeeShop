@@ -14,7 +14,7 @@
     <NotificationContainer/>
     
     <PageHeader BrandName="HARDCORE COFFEE" PagesInfo="@_info"/>
-    <div class="content-background" style="background-image: url(@(BackgroundUri)">
+    <div class="content-background" style="background-image: url(@BackgroundUri">
         <div class="content">
             @Body
         </div>
@@ -46,7 +46,7 @@
         new("History", "history", "images/page-icons/scroll.png")
     };
 
-    private string BackgroundUri => $"./images/mainbg-{Time.Now.Minute % 6 / 2}.jpg";
+    private static string BackgroundUri => $"./images/mainbg-{TimeOnly.FromDateTime(DateTime.Now).Minute % 6 / 2}.jpg";
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
